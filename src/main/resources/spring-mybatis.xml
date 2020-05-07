@@ -44,7 +44,7 @@
     <bean
             class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage"
-                  value="org.study.heat.dao"/>
+                  value="org.study.oals.dao"/>
     </bean>
     <!-- 定义事务管理对象 -->
     <bean id="txManager"

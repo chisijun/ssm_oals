@@ -1,7 +1,7 @@
 package org.study.oals.model.domain;
 
 import lombok.Data;
-import org.study.car.base.BaseEntity;
+import org.study.oals.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;

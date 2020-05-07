@@ -4,7 +4,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.study.heat.exception.BusinessException;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -187,7 +186,7 @@ public abstract class BaseService<T> implements IService<T> {
 			int count = mapper.delete(record);
 			if (count < 1) {
 				logger.error("删除数据失败");
-				throw new BusinessException("删除数据失败!");
+				throw new RuntimeException("删除数据失败!");
 			}
 			result += count;
 		}

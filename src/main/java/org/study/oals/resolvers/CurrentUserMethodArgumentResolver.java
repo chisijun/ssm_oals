@@ -8,10 +8,10 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
-import org.study.car.annotation.CurrentUser;
-import org.study.car.config.Constants;
-import org.study.car.model.domain.User;
-import org.study.car.service.UserService;
+import org.study.oals.annotation.CurrentUser;
+import org.study.oals.config.Constants;
+import org.study.oals.model.domain.User;
+import org.study.oals.service.UserService;
 
 /**
  * ClassName: CurrentUserMethodArgumentResolver 

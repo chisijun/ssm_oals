@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.study.car.model.domain.User;
+import org.study.oals.model.domain.User;
 
 import javax.persistence.*;
 import java.io.Serializable;

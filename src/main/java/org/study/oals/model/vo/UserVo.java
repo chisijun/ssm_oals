@@ -8,7 +8,7 @@
 package org.study.oals.model.vo;
 
 import lombok.Data;
-import org.study.car.base.BaseVo;
+import org.study.oals.base.BaseVo;
 
 import java.util.Date;
 
@@ -101,4 +101,18 @@ public class UserVo extends BaseVo {
      */
     private Date pwdErrorTime;
 
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 角色编码
+     */
+    private String roleCode;
 }

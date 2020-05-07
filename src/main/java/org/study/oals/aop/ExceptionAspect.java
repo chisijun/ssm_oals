@@ -4,7 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.study.heat.common.JsonResult;
+import org.study.oals.common.JsonResult;
 
 /**
  * @author puyijun
@@ -14,7 +14,7 @@ import org.study.heat.common.JsonResult;
 @Aspect
 @Component
 public class ExceptionAspect {
-	@Around("within(org.study.heat.controller.*Controller)")
+	@Around("within(org.study.oals.controller.*Controller)")
 	public Object process(ProceedingJoinPoint target) {
 		
 		try{

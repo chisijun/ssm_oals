@@ -1,7 +1,7 @@
 package org.study.oals.model.domain;
 
 import lombok.Data;
-import org.study.car.base.BaseEntity;
+import org.study.oals.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -102,5 +102,20 @@ public class User extends BaseEntity {
      */
     @Column(name = "pwd_error_time")
     private Date pwdErrorTime;
+
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 角色编码
+     */
+    private String roleCode;
 
 }

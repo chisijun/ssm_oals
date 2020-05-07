@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.study.heat.config.Constants;
+import org.study.oals.config.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;

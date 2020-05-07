@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.study.car.annotation.Authorization;
-import org.study.car.config.Constants;
-import org.study.car.model.entity.TokenModel;
-import org.study.car.service.TokenManager;
+import org.study.oals.annotation.Authorization;
+import org.study.oals.config.Constants;
+import org.study.oals.model.entity.TokenModel;
+import org.study.oals.service.TokenManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

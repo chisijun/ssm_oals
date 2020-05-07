@@ -1,8 +1,8 @@
 package org.study.oals.dao;
 
-import org.study.car.model.domain.User;
-import org.study.car.model.dto.UserQueryDto;
-import org.study.car.model.vo.UserVo;
+import org.study.oals.model.domain.User;
+import org.study.oals.model.dto.UserQueryDto;
+import org.study.oals.model.vo.UserVo;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

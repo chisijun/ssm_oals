@@ -8,7 +8,7 @@
 package org.study.oals.model.dto;
 
 import lombok.Data;
-import org.study.car.base.BaseQuery;
+import org.study.oals.base.BaseQuery;
 
 /**
  * ClassName: UserQueryDto 

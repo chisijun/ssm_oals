@@ -2,8 +2,8 @@ package org.study.oals.service.impl;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.study.heat.entity.TokenModel;
-import org.study.heat.service.TokenManager;
+import org.study.oals.model.entity.TokenModel;
+import org.study.oals.service.TokenManager;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

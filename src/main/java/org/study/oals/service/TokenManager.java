@@ -1,6 +1,6 @@
 package org.study.oals.service;
 
-import org.study.car.model.entity.TokenModel;
+import org.study.oals.model.entity.TokenModel;
 
 public interface TokenManager {
     /**

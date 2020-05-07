@@ -23,7 +23,7 @@
   <!-- cors跨域 -->
   <filter>
     <filter-name>CORS</filter-name>
-    <filter-class>org.study.car.config.CORSFilter</filter-class>
+    <filter-class>org.study.oals.config.CORSFilter</filter-class>
     <init-param>
       <param-name>cors.allowOrigin</param-name>
       <param-value>*</param-value>
