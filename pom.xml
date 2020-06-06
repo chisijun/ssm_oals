@@ -29,8 +29,8 @@
     <!-- MyBatis Generator -->
     <!-- Java接口和实体类 -->
     <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-    <targetMapperPackage>org.study.car.dao</targetMapperPackage>
-    <targetModelPackage>org.study.car.model.domain</targetModelPackage>
+    <targetMapperPackage>org.study.oals.dao</targetMapperPackage>
+    <targetModelPackage>org.study.oals.model.domain</targetModelPackage>
     <!-- XML生成路径 -->
     <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
     <targetXMLPackage>mapper</targetXMLPackage>

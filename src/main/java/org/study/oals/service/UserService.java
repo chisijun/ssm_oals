@@ -89,4 +89,12 @@ public interface UserService extends IService<User> {
 	 */
 	boolean checkLoginName(CheckLoginNameDto checkLoginNameDto);
 
+	/**
+	 * 用户注册
+	 *
+	 * @param user	the user
+	 *
+	 * @return	the int
+	 */
+    Integer register(User user);
 }

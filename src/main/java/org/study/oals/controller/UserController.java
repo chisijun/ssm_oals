@@ -35,7 +35,26 @@ public class UserController {
 
 	@Resource
 	private UserService userService;
-	
+
+	/**
+	 * 用户注册
+	 *
+	 * @param user the user
+	 *
+	 * @return	the int.
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public JsonResult register(User user) {
+
+		Integer result = userService.register(user);
+		if (result < 1) {
+			return new JsonResult(false, "注册失败", result);
+		}
+
+		return new JsonResult(true, "注册成功", result);
+	}
+
+
 	/**
 	 * 查看个人信息
 	 */
@@ -43,7 +62,7 @@ public class UserController {
 	@Authorization
 	@RequestMapping(method = RequestMethod.GET)
 	public JsonResult user(@CurrentUser User login) {
-		
+
 		return new JsonResult(true, "个人信息查询成功", login);
 	}
 	

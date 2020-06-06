@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.study.oals.dao.AuditMapper" >
+  <resultMap id="BaseResultMap" type="org.study.oals.model.domain.Audit" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="audit_type" property="auditType" jdbcType="INTEGER" />
+    <result column="id_card_up" property="idCardUp" jdbcType="VARCHAR" />
+    <result column="id_card_down" property="idCardDown" jdbcType="VARCHAR" />
+    <result column="student_no" property="studentNo" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="teacher_no" property="teacherNo" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="INTEGER" />
+    <result column="failed_desc" property="failedDesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="queryAuditListWithPage" resultType="org.study.oals.model.vo.AuditVo">
+    SELECT
+      a.*,
+      u.user_name,
+      u.login_name,
+      u.mobile_no,
+      u.email
+    FROM
+      t_user u
+    LEFT JOIN t_audit a ON u.id = a.id
+    WHERE 1 = 1
+    <if test="pass != null">
+      AND a.pass = #{pass}
+    </if>
+    <if test="auditType != null">
+      AND a.audit_type = #{auditType}
+    </if>
+  </select>
+
+</mapper>

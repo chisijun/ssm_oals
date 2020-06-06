@@ -28,15 +28,31 @@
         <javaClientGenerator targetPackage="${targetMapperPackage}"
                              targetProject="${targetJavaProject}" type="XMLMAPPER"/>
 
-        <table tableName="t_user" domainObjectName="User">
+        <!--<table tableName="t_user" domainObjectName="User">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+		<!--<table tableName="t_role" domainObjectName="Role">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+		<!--<table tableName="t_role_user" domainObjectName="RoleUser">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="t_audit" domainObjectName="Audit">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-		<table tableName="t_role" domainObjectName="Role">
+        <table tableName="t_order" domainObjectName="Order">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-		<table tableName="t_role_user" domainObjectName="RoleUser">
+        <table tableName="t_task" domainObjectName="Task">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table tableName="t_wallet" domainObjectName="Wallet">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

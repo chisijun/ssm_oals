@@ -208,4 +208,22 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		return result < 1;
 	}
 
+	/**
+	 * 用户注册
+	 *
+	 * @param user the user
+	 * @return the int
+	 */
+	@Override
+	public Integer register(User user) {
+
+		User record = new User();
+		record.setLoginName(user.getLoginName());
+		record.setLoginPwd(MD5.getMd5().getMD5ofStr(user.getLoginPwd()));
+
+
+
+		return null;
+	}
+
 }
