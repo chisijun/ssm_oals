@@ -40,19 +40,23 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="t_audit" domainObjectName="Audit">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="t_audit" domainObjectName="Audit">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="t_order" domainObjectName="Order">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="t_order" domainObjectName="Order">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="t_task" domainObjectName="Task">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="t_task" domainObjectName="Task">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="t_wallet" domainObjectName="Wallet">
+        <!--<table tableName="t_wallet" domainObjectName="Wallet">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="t_resource" domainObjectName="Resource">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

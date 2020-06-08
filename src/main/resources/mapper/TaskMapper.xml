@@ -27,4 +27,18 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryTaskListWithPage" resultType="org.study.oals.model.vo.TaskVo">
+    select * from t_task
+    where 1 = 1
+    <if test="state != null">
+      AND state = #{state}
+    </if>
+    <if test="stateList.size() > 0">
+      AND state IN
+      <foreach item="item" index="index" collection="stateList" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
 </mapper>

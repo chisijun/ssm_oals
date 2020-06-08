@@ -95,7 +95,13 @@ public class UserController {
 		
 		return new JsonResult(true, "操作成功", result);
 	}
-	
+
+	/**
+	 *
+	 * @param login
+	 * @param modifyPwdDto
+	 * @return
+	 */
 	@Authorization
 	@RequestMapping(value = "/modifyPwd", method = RequestMethod.POST)
 	public JsonResult modifyPwd(@CurrentUser User login, ModifyPwdDto modifyPwdDto) {

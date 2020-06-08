@@ -1,5 +1,6 @@
 package org.study.oals.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.study.oals.base.BaseService;
 import org.study.oals.dao.TaskMapper;
@@ -59,7 +60,17 @@ public class TaskServiceImpl extends BaseService<Task> implements TaskService {
     @Override
     public Integer receiveTask(User login, Long id) {
 
-        return null;
+        Task task = taskMapper.selectByPrimaryKey(id);
+        if (PublicUtil.isEmpty(task)) {
+            throw new RuntimeException("任务不存在");
+        }
+
+        // TODO 判断任务是否待接受
+
+        task.setUpdateInfo(login);
+
+
+        return taskMapper.updateByPrimaryKeySelective(task);
     }
 
     /**
@@ -72,6 +83,8 @@ public class TaskServiceImpl extends BaseService<Task> implements TaskService {
     @Override
     public List<TaskVo> queryTaskListWithPage(TaskQueryDto taskQueryDto) {
 
-        return null;
+        PageHelper.startPage(taskQueryDto.getPageNum(), taskQueryDto.getPageSize());
+
+        return taskMapper.queryTaskListWithPage(taskQueryDto);
     }
 }

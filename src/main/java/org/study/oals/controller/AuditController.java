@@ -29,6 +29,46 @@ public class AuditController {
     private AuditService auditService;
 
     /**
+     * 申请审核认证
+     *
+     * @param login     当前登录者
+     * @param auditDto  审核对象
+     *
+     * @return  the json result
+     */
+    @Authorization
+    @RequestMapping(value = "/auditApply", method = RequestMethod.POST)
+    public JsonResult auditApply(@CurrentUser User login, AuditDto auditDto) {
+
+        Integer result = auditService.auditApply(login, auditDto);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+
+        return new JsonResult(true, "操作成功", result);
+    }
+
+    /**
+     * 修改审核认证
+     *
+     * @param login     当前登录者
+     * @param auditDto  审核对象
+     *
+     * @return  the json result
+     */
+    @Authorization
+    @RequestMapping(value = "/auditModify", method = RequestMethod.POST)
+    public JsonResult auditModify(@CurrentUser User login, AuditDto auditDto) {
+
+        Integer result = auditService.auditModify(login, auditDto);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+
+        return new JsonResult(true, "操作成功", result);
+    }
+
+    /**
      * 审核认证
      *
      * @param login     当前登录者

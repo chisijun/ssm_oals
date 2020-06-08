@@ -34,4 +34,24 @@ public interface AuditService extends IService<Audit> {
      * @return  the list.
      */
     List<AuditVo> queryAuditListWithPage(AuditQueryDto auditQueryDto);
+
+    /**
+     * 申请审核认证
+     *
+     * @param login     当前登录者
+     * @param auditDto  审核对象
+     *
+     * @return  the int.
+     */
+    Integer auditApply(User login, AuditDto auditDto);
+
+    /**
+     * 修改审核认证
+     *
+     * @param login     当前登录者
+     * @param auditDto  审核对象
+     *
+     * @return  the int.
+     */
+    Integer auditModify(User login, AuditDto auditDto);
 }
