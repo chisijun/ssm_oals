@@ -1,10 +1,12 @@
 package org.study.oals.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.study.oals.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Data
@@ -106,16 +108,19 @@ public class User extends BaseEntity {
     /**
      * 角色ID
      */
+    @Transient
     private Long roleId;
 
     /**
      * 角色名称
      */
+    @Transient
     private String roleName;
 
     /**
      * 角色编码
      */
+    @Transient
     private String roleCode;
 
 }

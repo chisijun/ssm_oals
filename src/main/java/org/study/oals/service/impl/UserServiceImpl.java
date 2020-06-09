@@ -51,7 +51,10 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	public User selectUserById(Long userId) {
 		// TODO Auto-generated method stub
 
-		return userMapper.selectByPrimaryKey(userId);
+//		return userMapper.selectByPrimaryKey(userId);
+
+        // 查询用户角色信息
+        return userMapper.selectByUserId(userId);
 	}
 
 	/* (non-Javadoc)
@@ -73,9 +76,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		}
 
 		// 密码加密
-		/**
-		 * 通过手机号码校验
-		 * */
 		password = MD5.getMd5().getMD5ofStr(password);
 		User user = userMapper.selectByLoginName(loginName);
 
@@ -83,10 +83,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			throw new RuntimeException("用户名不存在.");
 		}
 
-		System.out.println("user = " + user);
-
-		System.out.println("password = " + password);
-		System.out.println("pwd = " + user.getLoginPwd());
 		if (!password.equals(user.getLoginPwd())) {
 			throw new RuntimeException("密码错误.");
 		}
