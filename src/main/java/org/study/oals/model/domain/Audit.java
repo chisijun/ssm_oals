@@ -17,6 +17,12 @@ public class Audit extends BaseEntity {
     private Integer auditType;
 
     /**
+     * 身份证
+     */
+    @Column(name = "id_card")
+    private String idCard;
+
+    /**
      * 身份证正面
      */
     @Column(name = "id_card_up")

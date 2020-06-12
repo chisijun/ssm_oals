@@ -19,4 +19,37 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="showById" resultType="org.study.oals.model.vo.WalletVo">
+
+    SELECT
+          w.*,
+          u.user_name,
+          u.login_name,
+          u.mobile_no,
+          u.email
+        FROM
+          t_user u
+        RIGHT JOIN t_wallet w ON u.id = w.id
+        WHERE w.id = #{id}
+
+  </select>
+
+    <select id="queryListWithPage" resultType="org.study.oals.model.vo.WalletVo">
+        SELECT
+          w.*,
+          a.audit_type,
+          u.user_name,
+          u.login_name,
+          u.mobile_no,
+          u.email
+        FROM
+          t_user u
+        RIGHT JOIN t_wallet w ON u.id = w.id
+        LEFT JOIN t_audit a ON a.id = w.id
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.user_name LIKE concat('%', #{userName}, '%')
+        </if>
+    </select>
 </mapper>

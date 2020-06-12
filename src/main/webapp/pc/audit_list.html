@@ -24,13 +24,13 @@
 </head>
 
 <body style="background:#65A6EA;width:1254px;" class="ifram">
-    <div class="wrapper-container apply_list">
+    <div class="wrapper-container audit_list">
         <!--搜索框-->
         <div class="search-box">
             
-            <input class="isPhone" type="text" placeholder="请输入用户名称" />
+            <input class="isPhone" type="text" placeholder="请输入用户姓名" />
             <button class="searchBtn">搜索</button>
-            <!--<button class="addBtn">新建</button>-->
+            <!--<button class="addBtn">用户入住</button>-->
         </div>
         <!--table数据-->
         <div class="table-box">
@@ -46,12 +46,25 @@
     <!--新增-->
     <div class="add_mask" id="add_mask">
         <div class="mask_contain" style="height: 360px;">
-            <div class="mask_top">新增用户<span class="close1">&times;</span></div>
+            <div class="mask_top">用户入住<span class="close1">&times;</span></div>
             <div class="form" style="padding-bottom:0;">
-                <div><span>登录名：</span><input id="loginName" type="text" placeholder="请输入登录名"></div><br>
-                <div><span>姓名：</span><input id="userName" type="text" placeholder="请输入姓名"></div><br>
-                <div><span>手机号：</span><input id="mobileNo" type="text" placeholder="请输入手机号"></div><br>
-                <div><span>邮箱：</span><input id="email" type="text" placeholder="请输入邮箱"></div><br>
+                <div>
+                    <span>用户房子：</span>
+                    <select id="add_roomSlt" style="width:172px;">
+                        <option value="-1">请选择房子</option>
+                    </select>
+                </div><br>
+                <div><span>房子类型：</span><input type="text" id="roomType" readonly="readonly" value="暂无"></div><br>
+                <div><span>房子户型：</span><input type="text" id="houseType" readonly="readonly" value="暂无"></div><br>
+                <div><span>房子面积：</span><input type="text" id="acreage" readonly="readonly" value="暂无"></div><br>
+                <div>
+                    <span>是否供热：</span>
+                    <select id="add_heatSlt" style="width:172px;">
+                        <option value="-1">请选择是否供热</option>
+                        <option value="0">不供热</option>
+                        <option value="1">供热</option>
+                    </select>
+                </div><br>
             </div>
             <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
         </div>
@@ -85,23 +98,34 @@
          </div>
     </div>
 
-    <input type="hidden" id="applyId" value="">
-
     <!--确认删除-->
-    <div class="delete_mask" id="start">
+    <div class="delete_mask">
+        <input type="hidden" id="d_userId" value="">
         <div class="mask_contain">
-            <div class="mask_top">同意复热<span class="close7">&times;</span></div>
-            <div class="delete_title">是否同意复热选中房子？</div>
-            <div class="delete_btn"><button class="delete_comfire" id="start_comfire">确认</button><button class="delete_cansle" id="start_cansle">取消</button></div>
+            <div class="mask_top">删除用户<span class="close3">&times;</span></div>
+            <div class="delete_title">是否删除选中用户？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
         </div>
     </div>
 
-    <!--确认删除-->
-    <div class="delete_mask" id="stop">
+    <!--确认迁出-->
+    <div class="delete_mask" id="qianchu_mask">
+        <input type="hidden" id="qc_roomId" value="">
         <div class="mask_contain">
-            <div class="mask_top">同意停热<span class="close8">&times;</span></div>
-            <div class="delete_title">是否同意停热选中房子？</div>
-            <div class="delete_btn"><button class="delete_comfire" id="stop_comfire">确认</button><button class="delete_cansle" id="stop_cansle">取消</button></div>
+            <div class="mask_top">认证审核<span class="close7">&times;</span></div>
+            <div class="delete_title">是否认证审核通过？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="qianchu_comfire">通过</button><button class="delete_cansle"  id="qianchu_cansle">不通过</button></div>
+        </div>
+    </div>
+
+    <!--确认强停-->
+    <div class="delete_mask" id="qiangting_mask">
+        <input type="hidden" id="qt_roomId" value="">
+        <input type="hidden" id="qt_roomName" value="">
+        <div class="mask_contain">
+            <div class="mask_top">房子强停<span class="close8">&times;</span></div>
+            <div class="delete_title">是否强停选中的房子？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="qiangting_comfire">确认</button><button class="delete_cansle" id="qiangting_cansle">取消</button></div>
         </div>
     </div>
 
@@ -113,6 +137,19 @@
     <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
     <script>
         layui.use(['layer', 'laypage'], function() {
+
+            var search=location.search;
+            var params={};
+            if (params!='') {
+                var ps = search.slice(1).split('&');
+                for (var i=0;i<ps.length;i++) {
+                    var arr=ps[i].split('=');
+                    params[arr[0]]=arr[1];
+                }
+            }
+            var userId=params.userId;
+            var userName = params.userName;
+
             var layer = layui.layer;
             var laypage = layui.laypage;
             // 房屋详情
@@ -125,6 +162,67 @@
                 var userId = $(this).attr('data-userId');
                 window.location.href = 'serviceMark.html?userId=' + userId;
             });
+
+            // 加载房间列表
+            function load_room() {
+                var data = {
+                    "pageNum": 1,
+                    "pageSize": 100,
+                };
+
+                WFang("room/queryNotCheckInRoomList", function(arr) {
+                    var datarow = "";
+                    var roomLocation = "";
+                    if (arr.status == false) {
+                        
+                    } else {
+                        datarow += '<option value="-1">请选择房子</option>'; 
+                        for (var i = 0; i < arr.data.length; i++) {
+                            roomLocation = arr.data[i].areaName + arr.data[i].buildingName + arr.data[i].unitNo + '单元' + arr.data[i].roomName
+
+                            datarow += '<option value=' + arr.data[i].id+'>'
+                                    + roomLocation + '</option>';
+                        }
+                    }
+                    $('#add_roomSlt').html(datarow);
+                    //$('#m_buildingSlt').html(datarow);  
+                }, data, 'postForm');
+
+            }
+
+            $("#add_roomSlt").change(function() {  
+                var roomId = $('#add_roomSlt').find("option:selected").val();
+                // 获取楼栋信息
+                WFang("room/queryById/" + roomId, function(arr) {
+                    var roomType = "";
+                    var houseType = "";
+                    var acreage = "";
+                    if (arr.status == false) {
+                        
+                    } else {
+
+                        switch(arr.data.roomType) {
+                            case 1 :
+                                roomType = '居民';
+                                break;
+                            case 2 :
+                                roomType = '商业';
+                                break;
+                            case 3 :
+                                roomType = '办公';
+                                break;
+                            case 4 :
+                                roomType = '餐饮';
+                                break;
+                        }
+                        houseType = arr.data.houseType;
+                        acreage = arr.data.acreage + " ㎡";
+                    }
+                    $('#roomType').val(roomType);
+                    $('#houseType').val(houseType);
+                    $('#acreage').val(acreage);  
+                }, '', 'postForm');
+            }) 
 
             //页面渲染 
             var name = '';
@@ -157,9 +255,10 @@
                 var data = {
                     "pageNum": pageNo,
                     "pageSize": pageSize,
-                    "userName": name
+                    "userId": userId,
+                    "roomName": name
                 };
-                WFang("apply/queryListWithPage", function(arr) {
+                WFang("audit/queryAuditListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -190,66 +289,72 @@
                             nStatus = '',
                             lock = '',
                             color = ''
-                            roomType = '',
-                            applyType = '',
-                            stat = '',
-                            approval = '';
+                            roomType = ''
+                            roomLocation = ''
+                            heatType = '';
                         if (arr.data.list == '' || arr.data.list == null) {
                             layer.msg('暂无数据!');
                         } else {
                             html1 = 
-                                '<span>姓名</span>' +
-                                '<span>房子地址</span>' +
-                                '<span>类型</span>' +
-                                '<span>状态</span>' +
-                                '<span>时间</span>' +
+                                '<span>用户姓名</span>' +
+                                '<span>手机号码</span>' +
+                                '<span>审核类型</span>' +
+                                '<span>身份证号码</span>' +
+                                '<span>学校名称</span>' +
+                                '<span>审核状态</span>' +
                                 '<span>操作</span>';
                             $('.table-head').html(html1);
                             
                             for (var i = 0; i < arr.data.list.length; i++) {
 
-                                switch (arr.data.list[i].applyType) {
+                                var auditType = '';
+                                var pass = '';
+                                var heatType = ''; 
+
+                                // roomLocation = arr.data.list[i].areaName + arr.data.list[i].buildingName + arr.data.list[i].unitNo + '单元' + arr.data.list[i].roomName
+                                switch (arr.data.list[i].auditType) {
+                                    case 2 :
+                                        auditType = '学生';
+                                        break;
+                                    case 3 :
+                                        auditType = '老师';
+                                        break;
+                                }
+                                switch (arr.data.list[i].pass) {
                                     case 0 :
-                                       applyType = "申请停热";
-                                       break;
+                                        pass = '待认证';
+                                        break;
                                     case 1 :
-                                        applyType = "强制停热";
+                                        pass = '认证成功';
                                         break;
                                     case 2 :
-                                        applyType = "申请复热"; 
-                                        break;    
+                                        pass = '认证失败';
+                                        break;
                                 }
 
-                                approval = '<a class="a-delete" data-applyType="-1" data-applyId="-1" href="javascript:void (0);">无需操作</a>'
+                                var idCard = arr.data.list[i].idCard;
+                                if (idCard == '') {
+                                    idCard = '-';
+                                }
 
-                                switch (arr.data.list[i].stat) {
-                                    case 0 :
-                                       stat = "申请停热";
-                                       approval = '<a class="a-delete" data-applyType="' + arr.data.list[i].stat + '" data-applyId="' + arr.data.list[i].id + '" href="javascript:void (0);">同意停热</a>'
-                                       break;
-                                    case 1 :
-                                        stat = "同意停热";
-                                        break;
-                                    case 2 :
-                                        stat = "强制停热"; 
-                                        break;  
-                                    case 3 :
-                                        stat = "申请复热";
-                                        approval = '<a class="a-delete" data-applyType="' + arr.data.list[i].stat + '" data-applyId="' + arr.data.list[i].id + '" href="javascript:void (0);">同意复热</a>'
-                                        break;
-                                    case 4 :
-                                        stat = "同意复热";  
-                                        break; 
+                                var school = arr.data.list[i].school;
+                                if (school == '') {
+                                    school = '-';
                                 }
 
                                 html += 
                                     '<div class="div-box">' +
                                     '<span>' + arr.data.list[i].userName + '</span>' +
-                                    '<span>' + arr.data.list[i].roomName + '</span>' +
-                                    '<span>' + applyType + '</span>' +
-                                    '<span>' + stat + '</span>' +
-                                    '<span>' + arr.data.list[i].createdTime + '</span>' +
-                                    '<span>' + approval +
+                                    '<span>' + arr.data.list[i].mobileNo + '</span>' +
+                                    '<span>' + auditType + '</span>' +
+                                    '<span>' + idCard + '</span>' +
+                                    '<span>' + school + '</span>' +
+                                    '<span>' + pass + '</span>' +
+                                    '<span>' +
+                                    '<a class="a-edit" data-roomId="' 
+                                        + arr.data.list[i].id + '" href="javascript:void (0);">审核</a>' +
+                                    // '<a class="a-modifyPwd" data-roomName="' + roomLocation
+                                    //      + '" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">强停</a>' +
                                     '</span>' +
                                     '</div>';
                             }
@@ -262,6 +367,59 @@
             }
             
             /***********************关闭添加弹框*****************************/
+            // $('body').on("click","#qianchu_cansle",function(){
+            //     $("#qiangchu_mask").hide();
+            // });
+
+            /***********************通过*****************************/
+            $("body").on("click","#qianchu_comfire",function() {
+                var roomId = $('#qc_roomId').val();
+                var data = {
+                    "id": roomId,
+                    "pass": 1
+                };
+                WFang("audit/auditUser", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#qianchu_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************修改密码实现*****************************/
+            $("body").on("click","#qianchu_cansle",function() {
+                var roomId = $('#qc_roomId').val();
+                var data = {
+                    "id": roomId,
+                    "pass": 2
+                };
+                WFang("audit/auditUser", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#qianchu_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click","#qiangting_cansle",function(){
+                $("#qiangting_mask").hide();
+            });
+            
+
+            /***********************关闭添加弹框*****************************/
             $('body').on("click",".cansle",function(){
                 $(".add_mask").hide();
             });
@@ -269,6 +427,39 @@
             /***********************关闭添加弹框*****************************/
             $('body').on("click",".close1",function(){
                 $(".add_mask").hide();
+            });
+
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close7",function(){
+                $("#qianchu_mask").hide();
+            });
+
+            /***********************修改密码实现*****************************/
+            $("body").on("click","#qiangting_comfire",function() {
+                var roomId =  $('#qt_roomId').val();
+                var roomName = $('#qt_roomName').val();
+                var data = {
+                    "userId": userId,
+                    "roomId": roomId,
+                    "roomName":roomName
+                };
+                WFang("apply/strong", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#qiangting_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close8",function(){
+                $("#qiangting_mask").hide();
             });
             
             
@@ -280,18 +471,20 @@
 
             /***********************编辑弹框*****************************/
             $('body').on('click', '.a-edit', function() {
-                var userId = $(this).attr('data-userId');
-                var loginName = $(this).attr('data-loginName');
-                var userName = $(this).attr('data-userName');
-                var mobileNo = $(this).attr('data-mobileNo');
-                var email = $(this).attr('data-email');
-                $("#m_userId").val(userId);
-                $("#m_loginName").val(loginName);
-                $("#m_userName").val(userName);
-                $("#m_mobileNo").val(mobileNo);
-                $("#m_email").val(email);
+                // var userId = $(this).attr('data-userId');
+                // var loginName = $(this).attr('data-loginName');
+                // var userName = $(this).attr('data-userName');
+                // var mobileNo = $(this).attr('data-mobileNo');
+                // var email = $(this).attr('data-email');
+                // $("#m_userId").val(userId);
+                // $("#m_loginName").val(loginName);
+                // $("#m_userName").val(userName);
+                // $("#m_mobileNo").val(mobileNo);
+                // $("#m_email").val(email);
+                var roomId = $(this).attr('data-roomId');
+                $("#qc_roomId").val(roomId);
 
-                $("#modify_mask").show();
+                $("#qianchu_mask").show();
             });
 
             /***********************编辑-确定****************************/
@@ -325,10 +518,13 @@
 
             /***********************修改密码弹框*****************************/
             $('body').on("click",".a-modifyPwd",function(){
-                var userId = $(this).attr('data-userId');
-                $("#m_p_userId").val(userId);
+                var roomId = $(this).attr('data-roomId');
+                var roomName = $(this).attr('data-roomName');
 
-                $("#modify_pwd_mask").show();
+                $("#qt_roomId").val(roomId);
+                $("#qt_roomName").val(roomName);
+
+                $("#qiangting_mask").show();
             });
 
 
@@ -340,64 +536,6 @@
             /***********************关闭-修改密码弹框*****************************/
             $('body').on("click",".close6",function(){
                 $("#modify_pwd_mask").hide();
-            });
-
-            $('body').on("click",".close7",function(){
-                $("#start").hide();
-            });
-
-            $('body').on("click","#start_cansle",function(){
-                $("#start").hide();
-            });
-
-            $('body').on("click","#start_comfire",function(){
-                var apply = $("#applyId").val();
-
-                var data = {
-                    "id": apply
-                };
-                WFang("apply/approval", function(arr) {
-                    var pageNo = $('.layui-input').val();
-                    if (arr.status == false) {
-                        layer.msg(arr.message);
-                    } else {
-                        layer.msg(arr.message);
-                        setTimeout(function() {
-                            $("#start").hide();
-                            getData(pageNo, name);
-                        }, 1800);
-                    }
-                }, data, 'postForm')
- 
-            });
-
-            $('body').on("click",".close8",function(){
-                $("#stop").hide();
-            });
-
-            $('body').on("click","#stop_cansle",function(){
-                $("#stop").hide();
-            });
-
-            $('body').on("click","#stop_comfire",function(){
-                var apply = $("#applyId").val();
-
-                var data = {
-                    "id": apply
-                };
-                WFang("apply/approval", function(arr) {
-                    var pageNo = $('.layui-input').val();
-                    if (arr.status == false) {
-                        layer.msg(arr.message);
-                    } else {
-                        layer.msg(arr.message);
-                        setTimeout(function() {
-                            $("#stop").hide();
-                            getData(pageNo, name);
-                        }, 1800);
-                    }
-                }, data, 'postForm')
- 
             });
 
             /***********************修改密码实现*****************************/
@@ -437,7 +575,8 @@
 
             /***********************添加房间弹框*****************************/
             $('body').on('click', '.addBtn', function() {
-                $("#add_siteSlt").val("-1");
+                load_room();
+                
                 $("#areaName").val("");
                 $("#remark").val("");
 
@@ -446,17 +585,23 @@
 
             /***********************添加实现*****************************/
             $("body").on("click","#add_site",function() {
-                var loginName = $("#loginName").val();
-                var userName = $("#userName").val();
-                var mobileNo = $("#mobileNo").val();
-                var email = $("#email").val();
+                var roomId = $('#add_roomSlt').find("option:selected").val();
+                var heatType = $('#add_heatSlt').find("option:selected").val();
+
+                if (roomId == -1) {
+                    layer.msg("请选择房子");
+                    return ;
+                }
+                if (heatType == -1) {
+                    layer.msg("请选择是否供热");
+                    return ;
+                }
                 var data = {
-                    "loginName": loginName,
-                    "userName": userName,
-                    "mobileNo": mobileNo,
-                    "email": email
+                    "roomId": roomId,
+                    "userId": userId,
+                    "heatType": heatType
                 };
-                WFang("user/save", function(arr) {
+                WFang("user/checkIn", function(arr) {
                     var pageNo = $('.layui-input').val();
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -472,26 +617,9 @@
 
             /***********************删除弹框*****************************/
             $('body').on('click', '.a-delete', function() {
-
-                var applyType = $(this).attr('data-applyType');
-                var applyId = $(this).attr('data-applyId');
-                //alert(applyType);
-                if (applyType == -1) {
-                    layer.msg("无需操作");
-                    return ;
-                }
-
-                $('#applyId').val(applyId);
-
-                if (applyType == 0) {
-
-                    $("#start").show(); 
-                }
-
-                if (applyType == 3) {
-                   $("#stop").show(); 
-                }
-
+                var userId = $(this).attr('data-userId');
+                $("#d_userId").val(userId);
+                $(".delete_mask").show();
             });
 
             /***********************关闭删除弹框*****************************/

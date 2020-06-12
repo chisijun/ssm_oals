@@ -24,6 +24,13 @@ public class OrderVo extends BaseVo {
      */
     private BigDecimal amount;
 
+    private String userName;
+
+    /**
+     * 订单号
+     */
+    private String orderNo;
+
     /**
      * 订单类型 0-充值 1-提现 2-支付任务费用 3-获取任务奖励
      */

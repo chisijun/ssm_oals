@@ -127,8 +127,28 @@ function yanzhen(userName, password, token) {
                 setTimeout(function() {
                     window.location.replace(jumpto);
                 }, 1800);
-            } else {
-                layer.msg('该账号不能登录后台管理系统');
+            } else if (arr.data.roleCode == 'student') {
+
+                window.sessionStorage.setItem("userId", arr.data.id);
+                window.sessionStorage.setItem('tk_uname', arr.data.userName);
+                window.sessionStorage.setItem('tk_uid', arr.data.id);
+
+                var jumpto_student = "index_student.html";
+                layer.msg('登录成功', { icon: 1 });
+                setTimeout(function() {
+                    window.location.replace(jumpto_student);
+                }, 1800);
+            } else if (arr.data.roleCode == 'teacher') {
+
+                window.sessionStorage.setItem("userId", arr.data.id);
+                window.sessionStorage.setItem('tk_uname', arr.data.userName);
+                window.sessionStorage.setItem('tk_uid', arr.data.id);
+
+                var jumpto_teacher = "index_teacher.html";
+                layer.msg('登录成功', { icon: 1 });
+                setTimeout(function() {
+                    window.location.replace(jumpto_teacher);
+                }, 1800);
             }
         }
     }, {}, 'get', token)

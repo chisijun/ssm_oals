@@ -1,6 +1,7 @@
 package org.study.oals.controller;
 
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,23 @@ public class AuditController {
 
     @Resource
     private AuditService auditService;
+
+    /**
+     * 查询个人认证审核资料
+     *
+     * @param login 当前登录者
+     * @param id    审核id
+     *
+     * @return  the json result
+     */
+    @Authorization
+    @RequestMapping(value = "/showById/{id}", method = RequestMethod.POST)
+    public JsonResult showById(@CurrentUser User login, @PathVariable Long id) {
+
+        AuditVo auditVo = auditService.showById(id);
+
+        return new JsonResult(true, "操作成功", auditVo);
+    }
 
     /**
      * 申请审核认证

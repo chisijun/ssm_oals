@@ -8,6 +8,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
     <result column="audit_type" property="auditType" jdbcType="INTEGER" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
     <result column="id_card_up" property="idCardUp" jdbcType="VARCHAR" />
     <result column="id_card_down" property="idCardDown" jdbcType="VARCHAR" />
     <result column="student_no" property="studentNo" jdbcType="VARCHAR" />
@@ -34,7 +35,7 @@
       u.email
     FROM
       t_user u
-    LEFT JOIN t_audit a ON u.id = a.id
+    RIGHT JOIN t_audit a ON u.id = a.id
     WHERE 1 = 1
     <if test="pass != null">
       AND a.pass = #{pass}
@@ -43,5 +44,18 @@
       AND a.audit_type = #{auditType}
     </if>
   </select>
+
+    <select id="showById" resultType="org.study.oals.model.vo.AuditVo">
+        SELECT
+          a.*,
+          u.user_name,
+          u.login_name,
+          u.mobile_no,
+          u.email
+        FROM
+          t_user u
+        RIGHT JOIN t_audit a ON u.id = a.id
+        WHERE a.id = #{id}
+    </select>
 
 </mapper>

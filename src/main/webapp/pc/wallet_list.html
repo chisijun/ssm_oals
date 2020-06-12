@@ -24,7 +24,7 @@
 </head>
 
 <body style="background:#65A6EA;width:1254px;" class="ifram">
-    <div class="wrapper-container user_list">
+    <div class="wrapper-container apply_list">
         <!--搜索框-->
         <div class="search-box">
             
@@ -85,13 +85,23 @@
          </div>
     </div>
 
+    <input type="hidden" id="applyId" value="">
+
     <!--确认删除-->
-    <div class="delete_mask">
-        <input type="hidden" id="d_userId" value="">
+    <div class="delete_mask" id="start">
         <div class="mask_contain">
-            <div class="mask_top">删除用户<span class="close3">&times;</span></div>
-            <div class="delete_title">是否删除选中用户？</div>
-            <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
+            <div class="mask_top">同意复热<span class="close7">&times;</span></div>
+            <div class="delete_title">是否同意复热选中房子？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="start_comfire">确认</button><button class="delete_cansle" id="start_cansle">取消</button></div>
+        </div>
+    </div>
+
+    <!--确认删除-->
+    <div class="delete_mask" id="stop">
+        <div class="mask_contain">
+            <div class="mask_top">同意停热<span class="close8">&times;</span></div>
+            <div class="delete_title">是否同意停热选中房子？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="stop_comfire">确认</button><button class="delete_cansle" id="stop_cansle">取消</button></div>
         </div>
     </div>
 
@@ -108,8 +118,7 @@
             // 房屋详情
             $('body').on('click', '.a-room', function() {
                 var userId = $(this).attr('data-userId');
-                var userName = $(this).attr('data-userName');
-                window.location.href = 'audit_list.html?userName=' + userName + "&userId=" + userId;
+                window.location.href = 'user_room.html?userId=' + userId;
             });
             //服务印记跳转
             $('body').on('click', '.a-mark', function() {
@@ -150,7 +159,7 @@
                     "pageSize": pageSize,
                     "userName": name
                 };
-                WFang("user/queryListWithPage", function(arr) {
+                WFang("wallet/queryListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -181,55 +190,61 @@
                             nStatus = '',
                             lock = '',
                             color = ''
-                            roomType = '';
+                            roomType = '',
+                            applyType = '',
+                            stat = '',
+                            approval = '';
                         if (arr.data.list == '' || arr.data.list == null) {
                             layer.msg('暂无数据!');
                         } else {
                             html1 = 
-                                '<span>登录名</span>' +
-                                '<span>用户姓名</span>' +
-                                '<span>手机号</span>' +
-                                '<span>邮箱</span>' +
-                                '<span>角色</span>' +
-                                '<span>操作</span>';
+                                '<span>姓名</span>' +
+                                '<span>余额</span>' +
+                                '<span>类型</span>' +
+                                '<span>账户</span>' +
+                                '<span>时间</span>' ;
                             $('.table-head').html(html1);
                             
                             for (var i = 0; i < arr.data.list.length; i++) {
 
-                                var userName = arr.data.list[i].userName;
-                                if (userName == '') {
-                                    userName = '-';
+                                switch (arr.data.list[i].auditType) {
+                                    case 3 :
+                                       applyType = "学生";
+                                       break;
+                                    case 2 :
+                                        applyType = "老师";
+                                        break;    
                                 }
 
-                                var mobileNo = arr.data.list[i].mobileNo;
-                                if (mobileNo == '') {
-                                    mobileNo = '-';
-                                }
+                                // approval = '<a class="a-delete" data-applyType="-1" data-applyId="-1" href="javascript:void (0);">无需操作</a>'
 
-                                var email = arr.data.list[i].email;
-                                if (email == '') {
-                                    email = '-';
+                                switch (arr.data.list[i].stat) {
+                                    case 0 :
+                                       stat = "申请停热";
+                                       approval = '<a class="a-delete" data-applyType="' + arr.data.list[i].stat + '" data-applyId="' + arr.data.list[i].id + '" href="javascript:void (0);">同意停热</a>'
+                                       break;
+                                    case 1 :
+                                        stat = "同意停热";
+                                        break;
+                                    case 2 :
+                                        stat = "强制停热"; 
+                                        break;  
+                                    case 3 :
+                                        stat = "申请复热";
+                                        approval = '<a class="a-delete" data-applyType="' + arr.data.list[i].stat + '" data-applyId="' + arr.data.list[i].id + '" href="javascript:void (0);">同意复热</a>'
+                                        break;
+                                    case 4 :
+                                        stat = "同意复热";  
+                                        break; 
                                 }
 
                                 html += 
                                     '<div class="div-box">' +
-                                    '<span>' + arr.data.list[i].loginName + '</span>' +
-                                    '<span>' + userName + '</span>' +
-                                    '<span>' + mobileNo + '</span>' +
-                                    '<span>' + email + '</span>' +
-                                    '<span>' + arr.data.list[i].roleName + '</span>' +
-                                    '<span>' +
-                                    '<a class="a-edit" data-email = "' 
-                                        + arr.data.list[i].email + '" data-mobileNo = "' 
-                                        + arr.data.list[i].mobileNo + '" data-loginName = "' 
-                                        + arr.data.list[i].loginName + '" data-userName="' 
-                                        + arr.data.list[i].userName + '" data-userId="' 
-                                        + arr.data.list[i].id + '" href="javascript:void (0);">编辑</a>' +
-                                    '<a class="a-modifyPwd" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">修改密码</a>' +
-                                    '<a class="a-room" data-userName="' + arr.data.list[i].userName
-                                        + '" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">审核记录</a>' +
-                                    '<a class="a-delete" data-userId="' + arr.data.list[i].id + '" href="javascript:void (0);">删除</a>' +
-                                    '</span>' +
+                                    '<span>' + arr.data.list[i].userName + '</span>' +
+                                    '<span>' + arr.data.list[i].balance + '</span>' +
+                                    '<span>' + applyType + '</span>' +
+                                    '<span>' + arr.data.list[i].payNumber + '</span>' +
+                                    '<span>' + arr.data.list[i].createdTime + '</span>' +
                                     '</div>';
                             }
                             
@@ -321,6 +336,64 @@
                 $("#modify_pwd_mask").hide();
             });
 
+            $('body').on("click",".close7",function(){
+                $("#start").hide();
+            });
+
+            $('body').on("click","#start_cansle",function(){
+                $("#start").hide();
+            });
+
+            $('body').on("click","#start_comfire",function(){
+                var apply = $("#applyId").val();
+
+                var data = {
+                    "id": apply
+                };
+                WFang("apply/approval", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#start").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+ 
+            });
+
+            $('body').on("click",".close8",function(){
+                $("#stop").hide();
+            });
+
+            $('body').on("click","#stop_cansle",function(){
+                $("#stop").hide();
+            });
+
+            $('body').on("click","#stop_comfire",function(){
+                var apply = $("#applyId").val();
+
+                var data = {
+                    "id": apply
+                };
+                WFang("apply/approval", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#stop").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+ 
+            });
+
             /***********************修改密码实现*****************************/
             $("body").on("click","#modify_pwd_comfire",function() {
                 var userId = $("#m_p_userId").val();
@@ -393,9 +466,26 @@
 
             /***********************删除弹框*****************************/
             $('body').on('click', '.a-delete', function() {
-                var userId = $(this).attr('data-userId');
-                $("#d_userId").val(userId);
-                $(".delete_mask").show();
+
+                var applyType = $(this).attr('data-applyType');
+                var applyId = $(this).attr('data-applyId');
+                //alert(applyType);
+                if (applyType == -1) {
+                    layer.msg("无需操作");
+                    return ;
+                }
+
+                $('#applyId').val(applyId);
+
+                if (applyType == 0) {
+
+                    $("#start").show(); 
+                }
+
+                if (applyType == 3) {
+                   $("#stop").show(); 
+                }
+
             });
 
             /***********************关闭删除弹框*****************************/
