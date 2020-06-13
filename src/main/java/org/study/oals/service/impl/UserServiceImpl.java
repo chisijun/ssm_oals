@@ -12,8 +12,11 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.study.oals.base.BaseService;
+import org.study.oals.base.Constant;
+import org.study.oals.config.Constants;
 import org.study.oals.dao.RoleUserMapper;
 import org.study.oals.dao.UserMapper;
+import org.study.oals.model.domain.Audit;
 import org.study.oals.model.domain.RoleUser;
 import org.study.oals.model.domain.User;
 import org.study.oals.model.dto.CheckLoginNameDto;
@@ -21,6 +24,7 @@ import org.study.oals.model.dto.ModifyPwdDto;
 import org.study.oals.model.dto.UserQueryDto;
 import org.study.oals.model.enums.UserTypeEnum;
 import org.study.oals.model.vo.UserVo;
+import org.study.oals.service.AuditService;
 import org.study.oals.service.UserService;
 import org.study.oals.utils.MD5;
 import org.study.oals.utils.PublicUtil;
@@ -42,6 +46,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	private UserMapper userMapper;
 	@Resource
 	private RoleUserMapper roleUserMapper;
+	@Resource
+	private AuditService auditService;
 
 
 	/* (non-Javadoc)
@@ -215,11 +221,25 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 		User record = new User();
 		record.setLoginName(user.getLoginName());
+		record.setType("user");
 		record.setLoginPwd(MD5.getMd5().getMD5ofStr(user.getLoginPwd()));
 
+		int result = save(record);
+		if (result > 0) {
+			RoleUser roleUser = new RoleUser();
+			roleUser.setRoleId(user.getRoleId());
+			roleUser.setUserId(record.getId());
 
+			roleUserMapper.insertSelective(roleUser);
 
-		return null;
+			Audit audit = new Audit();
+			audit.setAuditType(user.getRoleId().intValue());
+			audit.setPass(Constants.PASS_APPLY);
+
+			auditService.save(audit);
+		}
+
+		return result;
 	}
 
 }

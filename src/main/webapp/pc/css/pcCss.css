@@ -470,35 +470,41 @@
 
 .user_list .table-box .div-box span:nth-child(1),
 .user_list .table-box .table-head span:nth-child(1) {
-    width: 180px;
+    width: 150px;
 }
 
 .user_list .table-box .div-box span:nth-child(2),
 .user_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 150px;
 }
 
 .user_list .table-box .div-box span:nth-child(3),
 .user_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 150px;
 }
 
 .user_list .table-box .div-box span:nth-child(4),
 .user_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 130px;
 }
 
 .user_list .table-box .div-box span:nth-child(5),
 .user_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
+    width: 130px;
+}
+
+.user_list .table-box .div-box span:nth-child(6),
+.user_list .table-box .table-head span:nth-child(6) {
+    border-left: 1px solid #c1c3c0;
     width: 210px;
 }
 
-.user_list .table-box .div-box span:nth-child(5) input,
-.user_list .table-box .table-head span:nth-child(5) input {
+.user_list .table-box .div-box span:nth-child(6) input,
+.user_list .table-box .table-head span:nth-child(6) input {
     display: inline-block;
     width: 100%;
     border: none;
@@ -563,51 +569,51 @@
 }
 
 
-/********************user_room.html*************************/
+/********************audit_list.html*************************/
 
-.user_room .table-box .div-box span:nth-child(1),
-.user_room .table-box .table-head span:nth-child(1) {
+.audit_list .table-box .div-box span:nth-child(1),
+.audit_list .table-box .table-head span:nth-child(1) {
     width: 140px;
 }
 
-.user_room .table-box .div-box span:nth-child(2),
-.user_room .table-box .table-head span:nth-child(2) {
+.audit_list .table-box .div-box span:nth-child(2),
+.audit_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
     width: 220px;
 }
 
-.user_room .table-box .div-box span:nth-child(3),
-.user_room .table-box .table-head span:nth-child(3) {
+.audit_list .table-box .div-box span:nth-child(3),
+.audit_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
     width: 130px;
 }
 
-.user_room .table-box .div-box span:nth-child(4),
-.user_room .table-box .table-head span:nth-child(4) {
+.audit_list .table-box .div-box span:nth-child(4),
+.audit_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
     width: 130px;
 }
 
-.user_room .table-box .div-box span:nth-child(5),
-.user_room .table-box .table-head span:nth-child(5) {
+.audit_list .table-box .div-box span:nth-child(5),
+.audit_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
     width: 130px;
 }
 
-.user_room .table-box .div-box span:nth-child(6),
-.user_room .table-box .table-head span:nth-child(6) {
+.audit_list .table-box .div-box span:nth-child(6),
+.audit_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
     width: 130px;
 }
 
-.user_room .table-box .div-box span:nth-child(7),
-.user_room .table-box .table-head span:nth-child(7) {
+.audit_list .table-box .div-box span:nth-child(7),
+.audit_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
     width: 200px;
 }
 
-.user_room .table-box .div-box span:nth-child(7) input,
-.user_room .table-box .table-head span:nth-child(7) input {
+.audit_list .table-box .div-box span:nth-child(7) input,
+.audit_list .table-box .table-head span:nth-child(7) input {
     display: inline-block;
     width: 100%;
     border: none;
@@ -615,11 +621,11 @@
     text-align: center;
 }
 
-.user_room .table-box .a-save {
+.audit_list .table-box .a-save {
     color: #ef4343;
 }
 
-.user_room .table-body div:nth-child(2n) input {
+.audit_list .table-body div:nth-child(2n) input {
     background-color: #eaeaea;
 }
 
