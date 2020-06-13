@@ -482,25 +482,25 @@
 .user_list .table-box .div-box span:nth-child(3),
 .user_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 150px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(4),
 .user_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 220px;
 }
 
 .user_list .table-box .div-box span:nth-child(5),
 .user_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 150px;
 }
 
 .user_list .table-box .div-box span:nth-child(6),
 .user_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 210px;
+    width: 220px;
 }
 
 .user_list .table-box .div-box span:nth-child(6) input,
@@ -794,49 +794,49 @@
 
 .payment_detail_list .table-box .div-box span:nth-child(1),
 .payment_detail_list .table-box .table-head span:nth-child(1) {
-    width: 220px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(2),
 .payment_detail_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 220px;
+    width: 140px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(3),
 .payment_detail_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 240px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(4),
 .payment_detail_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 120px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(5),
 .payment_detail_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(6),
 .payment_detail_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(7),
 .payment_detail_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 220px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(8),
 .payment_detail_list .table-box .table-head span:nth-child(8) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(8) input,

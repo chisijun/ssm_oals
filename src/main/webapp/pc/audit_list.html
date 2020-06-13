@@ -256,7 +256,7 @@
                     "pageNum": pageNo,
                     "pageSize": pageSize,
                     "userId": userId,
-                    "roomName": name
+                    "userName": name
                 };
                 WFang("audit/queryAuditListWithPage", function(arr) {
                     // console.log(arr);
@@ -320,17 +320,21 @@
                                         auditType = '老师';
                                         break;
                                 }
+                                var opt = '<a class="a-edit" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">审核</a>';
                                 switch (arr.data.list[i].pass) {
                                     case 0 :
                                         pass = '待认证';
                                         break;
                                     case 1 :
                                         pass = '认证成功';
+                                        opt = '<a class="a-succ" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">无需审核</a>';
                                         break;
                                     case 2 :
                                         pass = '认证失败';
                                         break;
                                 }
+
+
 
                                 var idCard = arr.data.list[i].idCard;
                                 if (idCard == '') {
@@ -350,12 +354,7 @@
                                     '<span>' + idCard + '</span>' +
                                     '<span>' + school + '</span>' +
                                     '<span>' + pass + '</span>' +
-                                    '<span>' +
-                                    '<a class="a-edit" data-roomId="' 
-                                        + arr.data.list[i].id + '" href="javascript:void (0);">审核</a>' +
-                                    // '<a class="a-modifyPwd" data-roomName="' + roomLocation
-                                    //      + '" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">强停</a>' +
-                                    '</span>' +
+                                    '<span>' + opt + '</span>' +
                                     '</div>';
                             }
                             

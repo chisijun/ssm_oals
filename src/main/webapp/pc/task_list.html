@@ -28,7 +28,7 @@
         <!--搜索框-->
         <div class="search-box">
             
-            <input class="isPhone" type="text" placeholder="请输入房子名称" />
+            <input class="isPhone" type="text" placeholder="请输入问题名称" />
             <button class="searchBtn">搜索</button>
         </div>
         <!--table数据-->
@@ -294,46 +294,48 @@
                                 '<span>单价(￥)</span>' +
                                 '<span>教师姓名</span>' +
                                 '<span>答案内容</span>' +
-                                '<span>问题状态</span>' +
-                                '<span>操作</span>';
+                                '<span>问题状态</span>';
                             $('.table-head').html(html1);
                             
-                            for (var i = 0; i < arr.data.length; i++) {
+                            for (var i = 0; i < arr.data.list.length; i++) {
 
-                                switch(arr.data[i].roomType) {
+                                switch(arr.data.list[i].state) {
+                                    case 0 :
+                                        roomType = '待发布';
+                                        break;
                                     case 1 :
-                                        roomType = '居民';
+                                        roomType = '已发布';
                                         break;
                                     case 2 :
-                                        roomType = '商业';
+                                        roomType = '已接收';
                                         break;
                                     case 3 :
-                                        roomType = '办公';
+                                        roomType = '已完成';
                                         break;
                                     case 4 :
-                                        roomType = '餐饮';
+                                        roomType = '确认完成';
                                         break;
                                 }
-
-                                html += 
+                                html +=
                                     '<div class="div-box">' +
-                                    '<span>' + arr.data[i].paymentNo + '</span>' +
-                                    '<span>' + arr.data[i].roomName + '</span>' +
+                                    '<span>' + arr.data.list[i].creator + '</span>' +
+                                    '<span>' + arr.data.list[i].questionName + '</span>' +
+                                    '<span>' + arr.data.list[i].questionDesc + '</span>' +
+                                    '<span>' + arr.data.list[i].tags + '</span>' +
+                                    '<span>' + arr.data.list[i].price + '</span>' +
+                                    '<span>' + arr.data.list[i].answerName + '</span>' +
+                                    '<span>' + arr.data.list[i].answer + '</span>' +
                                     '<span>' + roomType + '</span>' +
-                                    '<span>' + arr.data[i].acreage + '</span>' +
-                                    '<span>' + arr.data[i].price + '</span>' +
-                                    '<span>' + arr.data[i].fee + '</span>' +
-                                    '<span>' +
-                                    '<a class="a-delete" data-roomId="' + arr.data[i].roomId + '" href="javascript:void (0);">强停</a>' +
-                                    '</span>' +
+                                    // '<span>' +
+                                    // '<a class="a-delete" data-roomId="' + arr.data[i].roomId + '" href="javascript:void (0);">强停</a>' +
+                                    // '</span>' +
                                     '</div>';
                             }
-                            
                            $('.table-body').html(html);
                         }
                     }
 
-                }, '', 'postForm')
+                }, data, 'postForm')
             }
             
             /***********************关闭添加弹框*****************************/

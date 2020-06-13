@@ -37,6 +37,12 @@
       t_user u
     RIGHT JOIN t_audit a ON u.id = a.id
     WHERE 1 = 1
+    <if test="userId != null">
+      AND a.id = #{userId}
+    </if>
+    <if test="userName != null and userName != ''">
+      AND u.user_name LIKE concat('%', #{userName}, '%')
+    </if>
     <if test="pass != null">
       AND a.pass = #{pass}
     </if>
