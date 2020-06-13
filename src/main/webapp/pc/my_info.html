@@ -18,21 +18,21 @@
 	<div class="wrapper-container">
 		<div class="add-user-box">
 			<ul class="ul-Box ul-left">
-				<li><span>*</span>建档日期:<input type="date" class="createDate" /></li>
 				<li><span>*</span>用户姓名:<input type="text" class="name" /></li>
-				<li><span>*</span>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业:<input type="text" class="job" /></li>
-				<li><span>*</span>身份证件:
+				<li><span>*</span>身份号码:<input type="text" class="job" /></li>
+				<li><span>*</span>证件正面:
 					<button class="btn-file1">上传</button>
 					<input id="fileUpload1" type="file" class="input-files" accept="image/jpg,image/jpeg,image/png"/>
 				</li>
-				<li><span>*</span>日处理量:<input type="number" class="dealDay" style="width:150px;"  />&nbsp;&nbsp;&nbsp;吨</li>
-				<li><span>*</span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:<input type="text" class="phone" /></li>
+
 			</ul>
 			<ul class="ul-Box ul-right">
-				<li><span>*</span>项目名称:<input type="text" class="project" /></li>
-				<li><span>*</span>与( <input class="company" type="text" value=""> )签订的合同:<button class="btn-file2">上传</button><input id="fileUpload2" type="file" class="input-files2"></li>
-				<li class="li-textarea"><span>*</span>经营范围:<textarea placeholder="请输入相关内容" class="scope"></textarea></li>
-				<li class="li-textarea"><span>*</span>其他信用:<textarea placeholder="请输入相关内容" class="credit"></textarea></li>
+				<li><span>*</span>学校名称:<input type="number" class="dealDay" /></li>
+				<li><span>*</span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:<input type="text" class="phone" /></li>
+				<li><span>*</span>证件反面:
+					<button class="btn-file1">上传</button>
+					<input id="fileUpload2" type="file" class="input-files" accept="image/jpg,image/jpeg,image/png">
+				</li>
 			</ul>
 		</div>
 		<div class="user-btn-box">
@@ -53,8 +53,8 @@
 	layui.use(['layer', 'laypage'], function(){
 		var layer = layui.layer;
 		var laypage = layui.laypage;
-		var userId = getUrl().userId;
-
+		// var userId = getUrl().userId;
+        var userId = window.sessionStorage.getItem("userId");
 		//页面渲染
 		getData(1);
 		function getData(pageNo){
@@ -62,28 +62,28 @@
 			var pageSize = 10;
 			
 			var data = {"phone":'',"id":userId,"name":'',"startDate":'',"endDate":'',"pageNum":pageNo,"pageSize":pageSize};
-			WFang ("user/userShowAll",function(arr){
+			WFang ("audit/showById/" + userId,function(arr){
 			  	if(arr.status == false){
 			  		layer.msg(arr.message);
 			   	}else{
 			   		//分页
-					laypage.render({
-					    elem: 'page',//容器
-						count: arr.data.total,//总条数
-						theme: '#0D3D89',//主题
-						last: '末页',//最后一页
-						limit:'8',//每页条数限制
-						curr: arr.data.pageNum,//当前页
-						prev: '<em><</em>',//上一页
-		    			next: '<em>></em>',//下一页
-					    layout: ['count', 'prev', 'page', 'next','skip'],
-					    jump: function(obj,first){
-					      	 //obj包含了当前分页的所有参数，比如：
-					      	 if(!first){
-						    	getData(obj.curr);//得到当前页，以便向服务端请求对应页的数据。
-					      	 }
-					    }
-					});
+					// laypage.render({
+					//     elem: 'page',//容器
+					// 	count: arr.data.total,//总条数
+					// 	theme: '#0D3D89',//主题
+					// 	last: '末页',//最后一页
+					// 	limit:'8',//每页条数限制
+					// 	curr: arr.data.pageNum,//当前页
+					// 	prev: '<em><</em>',//上一页
+		    			// next: '<em>></em>',//下一页
+					//     layout: ['count', 'prev', 'page', 'next','skip'],
+					//     jump: function(obj,first){
+					//       	 //obj包含了当前分页的所有参数，比如：
+					//       	 if(!first){
+					// 	    	getData(obj.curr);//得到当前页，以便向服务端请求对应页的数据。
+					//       	 }
+					//     }
+					// });
 			   		
 			   		
 			   		if(arr.data.list[0].credit == ''){
@@ -123,7 +123,7 @@
             layer.load(1);
             $.ajax({
               	  async: true,
-			      url: ApiConf.server+'Resource/ResourceAdd',
+			      url: ApiConf.server+'resource/resourceAdd',
 			      type: "POST",
 			      dataType: 'json',
 			      data: fd,

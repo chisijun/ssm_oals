@@ -28,7 +28,7 @@
         <!--搜索框-->
         <div class="search-box">
             
-            <input class="isPhone" type="text" placeholder="请输入用户名称" />
+            <input class="isPhone" type="text" placeholder="请输入问题名称" />
             <button class="searchBtn">搜索</button>
             <button class="addBtn">新建</button>
         </div>
@@ -210,6 +210,17 @@
                 }, '', 'postForm');
             })
 
+            var search = location.search;
+            var params = {};
+            if (params != '') {
+                var ps = search.slice(1).split('&');
+                for (var i = 0; i < ps.length; i++) {
+                    var arr = ps[i].split('=');
+                    params[arr[0]] = arr[1];
+                }
+            }
+            var orderType = params.orderType;
+
             //页面渲染 
             var name = '';
             getData(1, name);
@@ -241,9 +252,10 @@
                 var data = {
                     "pageNum": pageNo,
                     "pageSize": pageSize,
+                    "orderType":orderType,
                     "userName": name
                 };
-                WFang("payment/queryListWithPage", function(arr) {
+                WFang("order/queryListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -284,30 +296,30 @@
                             html1 = 
                                 '<span>姓名</span>' +
                                 '<span>账单号</span>' +
-                                '<span>年度</span>' +
-                                '<span>总额(￥)</span>' +
+                                '<span>日期</span>' +
+                                '<span>账单类型</span>' +
                                 '<span>支付方式</span>' +
-                                '<span>支付金额</span>' +
-                                '<span>是否支付</span>' +
-                                '<span>操作</span>';
+                                '<span>账单金额(￥)</span>' +
+                                '<span>备注</span>' ;
                             $('.table-head').html(html1);
                             
                             for (var i = 0; i < arr.data.list.length; i++) {
 
-                                switch(arr.data.list[i].payType) {
-                                    case 0 :
-                                        payType = '现金';
-                                        break;
-                                    case 1 :
-                                        payType = '支付宝';
-                                        break;
-                                    case 2 :
-                                        payType = '微信';
-                                        break;
-                                    case 3 :
-                                        payType = '银联';
-                                        break;
-                                }
+                                // switch(arr.data.list[i].payType) {
+                                //     case 0 :
+                                //         payType = '现金';
+                                //         break;
+                                //     case 1 :
+                                //         payType = '支付宝';
+                                //         break;
+                                //     case 2 :
+                                //         payType = '微信';
+                                //         break;
+                                //     case 3 :
+                                //         payType = '银联';
+                                //         break;
+                                // }
+                                payType = '支付宝';
 
                                 fee = arr.data.list[i].fee;
                                 if (arr.data.list[i].isPay == '0') {
@@ -315,31 +327,37 @@
                                     fee = '--';
                                 }
 
-                                switch(arr.data.list[i].isPay) {
+                                switch(arr.data.list[i].orderType) {
                                     case 0 :
-                                        isPay = '待支付';
+                                        isPay = '充值';
                                         break;
                                     case 1 :
-                                        isPay = '已支付';
+                                        isPay = '提现';
+                                        break;
+                                    case 2 :
+                                        isPay = '支出';
+                                        break;
+                                    case 3 :
+                                        isPay = '收益';
                                         break;
                                 }
 
                                 html += 
                                     '<div class="div-box">' +
                                     '<span>' + arr.data.list[i].userName + '</span>' +
-                                    '<span>' + arr.data.list[i].paymentNo + '</span>' +
-                                    '<span>' + arr.data.list[i].paymentYear + '</span>' +
-                                    '<span>' + arr.data.list[i].actfee + '</span>' +
-                                    '<span>' + payType + '</span>' +
-                                    '<span>' + fee + '</span>' +
+                                    '<span>' + arr.data.list[i].orderNo + '</span>' +
+                                    '<span>' + arr.data.list[i].createdTime + '</span>' +
                                     '<span>' + isPay + '</span>' +
+                                    '<span>' + payType + '</span>' +
+                                    '<span>' + arr.data.list[i].amount + '</span>' +
+                                    '<span>' + arr.data.list[i].remark + '</span>' +
                                     '<span>' +
-                                    '<a class="a-edit" data-paymentNo="' + arr.data.list[i].paymentNo + '" href="javascript:void (0);">详情</a>' +
-                                    '<a class="a-modifyPwd" data-fee = "' + fee + '" data-paymentNo = "' 
-                                        + arr.data.list[i].paymentNo + '" data-userName="' 
-                                        + arr.data.list[i].userName + '" data-isPay="' 
-                                        + arr.data.list[i].isPay +  '" data-fee="' + fee +  '" href="javascript:void (0);">票据入库</a>' +
-                                    '</span>' +
+                                    // '<a class="a-edit" data-paymentNo="' + arr.data.list[i].paymentNo + '" href="javascript:void (0);">详情</a>' +
+                                    // '<a class="a-modifyPwd" data-fee = "' + fee + '" data-paymentNo = "'
+                                    //     + arr.data.list[i].paymentNo + '" data-userName="'
+                                    //     + arr.data.list[i].userName + '" data-isPay="'
+                                    //     + arr.data.list[i].isPay +  '" data-fee="' + fee +  '" href="javascript:void (0);">票据入库</a>' +
+                                    // '</span>' +
                                     '</div>';
                             }
                             

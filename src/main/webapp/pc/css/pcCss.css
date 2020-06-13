@@ -482,25 +482,25 @@
 .user_list .table-box .div-box span:nth-child(3),
 .user_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 150px;
+    width: 180px;
 }
 
 .user_list .table-box .div-box span:nth-child(4),
 .user_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 220px;
 }
 
 .user_list .table-box .div-box span:nth-child(5),
 .user_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 150px;
 }
 
 .user_list .table-box .div-box span:nth-child(6),
 .user_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 210px;
+    width: 220px;
 }
 
 .user_list .table-box .div-box span:nth-child(6) input,
@@ -751,115 +751,92 @@
 
 .payment_list .table-box .div-box span:nth-child(1),
 .payment_list .table-box .table-head span:nth-child(1) {
-    width: 130px;
+    width: 150px;
 }
 
 .payment_list .table-box .div-box span:nth-child(2),
 .payment_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 150px;
+    width: 180px;
 }
 
 .payment_list .table-box .div-box span:nth-child(3),
 .payment_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 180px;
 }
 
 .payment_list .table-box .div-box span:nth-child(4),
 .payment_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 140px;
 }
 
 .payment_list .table-box .div-box span:nth-child(5),
 .payment_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 140px;
 }
 
 .payment_list .table-box .div-box span:nth-child(6),
 .payment_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 150px;
 }
 
 .payment_list .table-box .div-box span:nth-child(7),
 .payment_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
-}
-
-.payment_list .table-box .div-box span:nth-child(8),
-.payment_list .table-box .table-head span:nth-child(8) {
-    border-left: 1px solid #c1c3c0;
     width: 180px;
-}
-
-.payment_list .table-box .div-box span:nth-child(8) input,
-.payment_list .table-box .table-head span:nth-child(8) input {
-    display: inline-block;
-    width: 100%;
-    border: none;
-    height: 30px;
-    text-align: center;
-}
-
-.payment_list .table-box .a-save {
-    color: #ef4343;
-}
-
-.payment_list .table-body div:nth-child(2n) input {
-    background-color: #eaeaea;
 }
 
 /********************payment_detail_list.html*************************/
 
 .payment_detail_list .table-box .div-box span:nth-child(1),
 .payment_detail_list .table-box .table-head span:nth-child(1) {
-    width: 220px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(2),
 .payment_detail_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 220px;
+    width: 140px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(3),
 .payment_detail_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 240px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(4),
 .payment_detail_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 120px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(5),
 .payment_detail_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(6),
 .payment_detail_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(7),
 .payment_detail_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 220px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(8),
 .payment_detail_list .table-box .table-head span:nth-child(8) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(8) input,
@@ -883,7 +860,7 @@
 
 .apply_list .table-box .div-box span:nth-child(1),
 .apply_list .table-box .table-head span:nth-child(1) {
-    width: 180px;
+    width: 200px;
 }
 
 .apply_list .table-box .div-box span:nth-child(2),
@@ -895,42 +872,19 @@
 .apply_list .table-box .div-box span:nth-child(3),
 .apply_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 200px;
 }
 
 .apply_list .table-box .div-box span:nth-child(4),
 .apply_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 230px;
 }
 
 .apply_list .table-box .div-box span:nth-child(5),
 .apply_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 200px;
-}
-
-.apply_list .table-box .div-box span:nth-child(6),
-.apply_list .table-box .table-head span:nth-child(6) {
-    border-left: 1px solid #c1c3c0;
-    width: 160px;
-}
-
-.apply_list .table-box .div-box span:nth-child(6) input,
-.apply_list .table-box .table-head span:nth-child(6) input {
-    display: inline-block;
-    width: 100%;
-    border: none;
-    height: 30px;
-    text-align: center;
-}
-
-.apply_list .table-box .a-save {
-    color: #ef4343;
-}
-
-.apply_list .table-body div:nth-child(2n) input {
-    background-color: #eaeaea;
+    width: 220px;
 }
 
 /********************deviceManegement.html*************************/

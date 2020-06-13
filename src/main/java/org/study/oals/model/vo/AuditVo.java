@@ -14,10 +14,19 @@ import javax.persistence.Column;
 @Data
 public class AuditVo extends BaseVo {
 
+    private String userName;
+
+    private String mobileNo;
+
     /**
      * 审核类型 2-学生 3-教师
      */
     private Integer auditType;
+
+    /**
+     * 身份证
+     */
+    private String idCard;
 
     /**
      * 身份证正面

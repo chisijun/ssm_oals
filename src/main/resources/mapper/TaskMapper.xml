@@ -34,7 +34,10 @@
     <if test="state != null">
       AND state = #{state}
     </if>
-    <if test="stateList.size() > 0">
+    <if test="taskName != null and taskName != ''">
+      AND question_name LIKE concat('%', #{taskName}, '%')
+    </if>
+    <if test="stateList != null and stateList.size() > 0">
       AND state IN
       <foreach item="item" index="index" collection="stateList" open="(" separator="," close=")">
         #{item}

@@ -41,7 +41,7 @@ import java.util.List;
  */
 //@CrossOrigin
 @RestController
-@RequestMapping("/Resource")
+@RequestMapping("/resource")
 public class ResourceController {
 
 	@javax.annotation.Resource

@@ -23,4 +23,6 @@ public class TaskQueryDto extends BaseQuery {
      */
     private List<Integer> stateList;
 
+    private String taskName;
+
 }

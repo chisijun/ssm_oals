@@ -27,8 +27,8 @@ public class OrderController {
     public OrderService orderService;
 
     @Authorization
-    @RequestMapping(value = "/queryAuditListWithPage", method = RequestMethod.POST)
-    private JsonResult queryOrderListWithPage(OrderQueryDto orderQueryDto) {
+    @RequestMapping(value = "/queryListWithPage", method = RequestMethod.POST)
+    public JsonResult queryOrderListWithPage(OrderQueryDto orderQueryDto) {
 
         List<OrderVo> orderVoList = orderService.queryOrderListWithPage(orderQueryDto);
 

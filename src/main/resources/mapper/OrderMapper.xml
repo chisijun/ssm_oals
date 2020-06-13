@@ -8,6 +8,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
     <result column="wallet_id" property="walletId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="order_type" property="orderType" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -21,7 +22,10 @@
   </resultMap>
 
   <select id="queryOrderListWithPage" resultType="org.study.oals.model.vo.OrderVo">
-    SELECT * FROM t_order o
+    SELECT o.*,
+      u.user_name
+    FROM t_order o
+    LEFT JOIN t_user u ON u.id = o.wallet_id
     WHERE 1 = 1
     <if test="orderType != null">
       AND o.order_type = #{orderType}

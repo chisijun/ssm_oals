@@ -54,4 +54,13 @@ public interface AuditService extends IService<Audit> {
      * @return  the int.
      */
     Integer auditModify(User login, AuditDto auditDto);
+
+    /**
+     * 查询个人认证审核资料
+     *
+     * @param id    审核id
+     *
+     * @return  the json result
+     */
+    AuditVo showById(Long id);
 }

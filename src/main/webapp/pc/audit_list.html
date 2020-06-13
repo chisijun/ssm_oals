@@ -112,9 +112,9 @@
     <div class="delete_mask" id="qianchu_mask">
         <input type="hidden" id="qc_roomId" value="">
         <div class="mask_contain">
-            <div class="mask_top">用户迁出<span class="close7">&times;</span></div>
-            <div class="delete_title">是否迁出选中的房子？</div>
-            <div class="delete_btn"><button class="delete_comfire" id="qianchu_comfire">确认</button><button class="delete_cansle"  id="qianchu_cansle">取消</button></div>
+            <div class="mask_top">认证审核<span class="close7">&times;</span></div>
+            <div class="delete_title">是否认证审核通过？</div>
+            <div class="delete_btn"><button class="delete_comfire" id="qianchu_comfire">通过</button><button class="delete_cansle"  id="qianchu_cansle">不通过</button></div>
         </div>
     </div>
 
@@ -256,9 +256,9 @@
                     "pageNum": pageNo,
                     "pageSize": pageSize,
                     "userId": userId,
-                    "roomName": name
+                    "userName": name
                 };
-                WFang("aduit/queryListWithPage", function(arr) {
+                WFang("audit/queryAuditListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -300,7 +300,7 @@
                                 '<span>手机号码</span>' +
                                 '<span>审核类型</span>' +
                                 '<span>身份证号码</span>' +
-                                '<span>学习名称</span>' +
+                                '<span>学校名称</span>' +
                                 '<span>审核状态</span>' +
                                 '<span>操作</span>';
                             $('.table-head').html(html1);
@@ -317,41 +317,44 @@
                                         auditType = '学生';
                                         break;
                                     case 3 :
-                                        auditType = '商业';
+                                        auditType = '老师';
                                         break;
                                 }
+                                var opt = '<a class="a-edit" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">审核</a>';
                                 switch (arr.data.list[i].pass) {
                                     case 0 :
                                         pass = '待认证';
                                         break;
                                     case 1 :
-                                        heatType = '供热';
+                                        pass = '认证成功';
+                                        opt = '<a class="a-succ" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">无需审核</a>';
                                         break;
                                     case 2 :
-                                        heatType = '报停';
+                                        pass = '认证失败';
                                         break;
-                                    case 3 :
-                                        heatType = '强停';
-                                        break;
-                                    case 4 :
-                                        heatType = '复热';
-                                        break;
+                                }
+
+
+
+                                var idCard = arr.data.list[i].idCard;
+                                if (idCard == '') {
+                                    idCard = '-';
+                                }
+
+                                var school = arr.data.list[i].school;
+                                if (school == '') {
+                                    school = '-';
                                 }
 
                                 html += 
                                     '<div class="div-box">' +
-                                    '<span>' + arr.data.list[i].areaName + '</span>' +
-                                    '<span>' + roomLocation + '</span>' +
-                                    '<span>' + roomType + '</span>' +
-                                    '<span>' + arr.data.list[i].houseType + '</span>' +
-                                    '<span>' + arr.data.list[i].acreage + '</span>' +
-                                    '<span>' + heatType + '</span>' +
-                                    '<span>' +
-                                    '<a class="a-edit" data-roomId="' 
-                                        + arr.data.list[i].id + '" href="javascript:void (0);">迁出</a>' +
-                                    '<a class="a-modifyPwd" data-roomName="' + roomLocation
-                                         + '" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">强停</a>' +
-                                    '</span>' +
+                                    '<span>' + arr.data.list[i].userName + '</span>' +
+                                    '<span>' + arr.data.list[i].mobileNo + '</span>' +
+                                    '<span>' + auditType + '</span>' +
+                                    '<span>' + idCard + '</span>' +
+                                    '<span>' + school + '</span>' +
+                                    '<span>' + pass + '</span>' +
+                                    '<span>' + opt + '</span>' +
                                     '</div>';
                             }
                             
@@ -363,18 +366,39 @@
             }
             
             /***********************关闭添加弹框*****************************/
-            $('body').on("click","#qianchu_cansle",function(){
-                $("#qiangchu_mask").hide();
-            });
+            // $('body').on("click","#qianchu_cansle",function(){
+            //     $("#qiangchu_mask").hide();
+            // });
 
-            /***********************修改密码实现*****************************/
+            /***********************通过*****************************/
             $("body").on("click","#qianchu_comfire",function() {
                 var roomId = $('#qc_roomId').val();
                 var data = {
-                    "userId": userId,
-                    "roomId": roomId
+                    "id": roomId,
+                    "pass": 1
                 };
-                WFang("user/checkOut", function(arr) {
+                WFang("audit/auditUser", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $("#qianchu_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+            /***********************修改密码实现*****************************/
+            $("body").on("click","#qianchu_cansle",function() {
+                var roomId = $('#qc_roomId').val();
+                var data = {
+                    "id": roomId,
+                    "pass": 2
+                };
+                WFang("audit/auditUser", function(arr) {
                     var pageNo = $('.layui-input').val();
                     if (arr.status == false) {
                         layer.msg(arr.message);

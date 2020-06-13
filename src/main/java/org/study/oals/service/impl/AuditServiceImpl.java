@@ -144,4 +144,17 @@ public class AuditServiceImpl extends BaseService<Audit> implements AuditService
 
         return auditMapper.updateByPrimaryKeySelective(audit);
     }
+
+    /**
+     * 查询个人认证审核资料
+     *
+     * @param id 审核id
+     *
+     * @return the json result
+     */
+    @Override
+    public AuditVo showById(Long id) {
+
+        return auditMapper.showById(id);
+    }
 }

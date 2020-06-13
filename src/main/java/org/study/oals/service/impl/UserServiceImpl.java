@@ -233,6 +233,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			roleUserMapper.insertSelective(roleUser);
 
 			Audit audit = new Audit();
+            audit.setId(user.getId());
 			audit.setAuditType(user.getRoleId().intValue());
 			audit.setPass(Constants.PASS_APPLY);
 

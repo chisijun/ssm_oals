@@ -20,4 +20,11 @@ public class AuditQueryDto extends BaseQuery {
      * 审核类型 2-学生 3-教师
      */
     private Integer auditType;
+
+    /**
+     * 用户Id
+     */
+    private Long userId;
+
+    private String userName;
 }

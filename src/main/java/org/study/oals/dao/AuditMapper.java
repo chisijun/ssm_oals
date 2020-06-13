@@ -17,4 +17,13 @@ public interface AuditMapper extends Mapper<Audit> {
      * @return the list.
      */
     List<AuditVo> queryAuditListWithPage(AuditQueryDto auditQueryDto);
+
+    /**
+     * 查询个人认证审核资料
+     *
+     * @param id 审核id
+     *
+     * @return the json result
+     */
+    AuditVo showById(Long id);
 }
