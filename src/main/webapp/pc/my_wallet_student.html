@@ -81,7 +81,19 @@
         <!--</div>-->
         <!--编辑确认-->
         <div class="edit-div">
-            <button class="edit-btn">编&nbsp;辑</button>
+            <button class="edit-btn">充值</button>
+        </div>
+    </div>
+
+    <div class="add_mask" id="add_mask">
+        <div class="mask_contain" style="height: 260px;">
+            <div class="mask_top">充值<span class="close1">&times;</span></div>
+            <div class="form" style="padding-bottom:0;">
+                <div><span>充值方式：</span><input id="a_payNumber" type="text" placeholder="支付宝" readonly="true"></div><br>
+                <div><span>充值金额：</span><input id="a_balance" type="text" placeholder="请输入充值金额"></div><br>
+                <div><span>充值说明：</span><input id="a_remark" type="text" placeholder="请输入备注"></div><br>
+            </div>
+            <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
         </div>
     </div>
 
@@ -160,7 +172,7 @@
                 var data = {
                     "userId": userId
                 };
-                WFang("wallet/showById/" + userId, function(arr) {
+                WFang("audit/showById/" + userId, function(arr) {
                     if (arr.status == false) {
                         layer.msg(arr.message);
                     } else {
@@ -183,108 +195,34 @@
                             totalAccount = 0, //总应还额度
                             footRepayAccount = 0; //总已还额度
                         //姓名
-                        if (arr.data.userNname == '') {
+                        if (arr.data.userName == '') {
                             name = '--';
                         } else {
-                            name = arr.data.name;
+                            name = arr.data.userName;
                         }
                         //身份证
                         if (arr.data.idCard == '') {
                             idty = '--';
                         } else {
-                            idty = arr.data.idty;
+                            idty = arr.data.idCard;
                         }
                         //还款金额
                         if (arr.data.balance == '') {
                             accountNum = 0;
                         } else {
-                            accountNum = arr.data.accountNum;
+                            accountNum = arr.data.balance;
                         }
-                        //还款方式
-                        if (arr.data.repayWay == '') {
-                            repayWay = '1';
-                        } else {
-                            repayWay = arr.data.repayWay;
-                        }
-                        //还款期数
-                        if (arr.data.stages.length == 0) {
-                            payNum = '0';
-                        } else {
-                            payNum = arr.data.stages.length;
-                        }
+
                         //利率
                         if (arr.data.payNumber == '') {
                             rate = '--';
                         } else {
-                            rate = arr.data.rate;
+                            rate = arr.data.payNumber;
                         }
-                        // $('.payNum').val(payNum);
                         $('.name').html(name);
                         $('.idty').html(idty);
-                        // $('.accountNum').html(accountNum);
-                        // $('.repayWay').val(repayWay);
+                        $('.accountNum').html(accountNum);
                         $('.rate').val(rate);
-                        // html1 = '<span>期数</span>' +
-                        //     '<span>支付阶段</span>' +
-                        //     '<span>支付日期</span>' +
-                        //     '<span>应付额度</span>' +
-                        //     '<span>已付款</span>' +
-                        //     '<span>状态</span>';
-                        // $('.table-head').html(html1);
-                        // if (arr.data.stages == '' || arr.data.stages == null) {
-                        //     //合同总金额
-                        //     $('.totalAccount').html('--');
-                        //     $('.foot-totalAccount').html('--');
-                        //     $('.foot-repayAccount').html('--');
-                        // } else {
-                        //     for (var i = 0; i < arr.data.stages.length; i++) {
-                        //         //累计应还额度总金额 totalAccount
-                        //         totalAccount += arr.data.stages[i].account;
-                        //         //累计已还款金额 footRepayAccount
-                        //         footRepayAccount += arr.data.stages[i].repayAccount;
-                        //         //还款阶段
-                        //         if (arr.data.stages[i].stage == '') {
-                        //             stage = '--';
-                        //         } else {
-                        //             stage = arr.data.stages[i].stage;
-                        //         }
-                        //         //还款日期
-                        //         if (arr.data.stages[i].repayDate == '') {
-                        //             repayDate = '--';
-                        //         } else {
-                        //             repayDate = arr.data.stages[i].repayDate;
-                        //         }
-                        //         //应还额度
-                        //         if (arr.data.stages[i].account == '') {
-                        //             account = 0;
-                        //         } else {
-                        //             account = arr.data.stages[i].account;
-                        //         }
-                        //         //已还额度
-                        //         if (arr.data.stages[i].repayAccount == '') {
-                        //             repayAccount = 0;
-                        //         } else {
-                        //             repayAccount = arr.data.stages[i].repayAccount;
-                        //         }
-                        //         //状态
-                        //         if (arr.data.stages[i].status == '') {
-                        //             status = '--';
-                        //         } else {
-                        //             status = arr.data.stages[i].status;
-                        //         }
-                        //         html += '<div class="div-box">' +
-                        //             '<span>' + (i + 1) + '</span>' +
-                        //             '<span>' + stage + '</span>' +
-                        //             '<span>' + repayDate + '</span>' +
-                        //             '<span>' + account + '</span>' +
-                        //             '<span>' + repayAccount + '</span>' +
-                        //             '<span>' + status + '</span>' +
-                        //             '</div>';
-                        //     }
-                        //     $('.foot-totalAccount').html(totalAccount);
-                        //     $('.foot-repayAccount').html(footRepayAccount);
-                        // }
-                        // $('.table-body').html(html);
                     }
 
                 }, data, 'postForm')
@@ -393,15 +331,43 @@
 
             }
             $('body').on('click', '.edit-btn', function() {
-                //编辑模式
-                isClick = '1';
-                $('.repayWay').attr('disabled', false);
-                $('.rate').attr('disabled', false);
-                //table数据
-                tableData(1);
-                $(this).html('保&nbsp;存');
-                $(this).removeClass('edit-btn').addClass('sure-btn');
+
+                $("#add_mask").show();
             });
+
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".cansle",function(){
+                $(".add_mask").hide();
+            });
+
+            /***********************关闭添加弹框*****************************/
+            $('body').on("click",".close1",function(){
+                $(".add_mask").hide();
+            });
+
+            /***********************添加实现*****************************/
+            $("body").on("click","#add_site",function() {
+                var payNumber = $("#a_payNumber").val();
+                var amount = $("#a_balance").val();
+                var remark = $("#a_remark").val();
+                var data = {
+                    "amount": amount,
+                    "remark": remark
+                };
+                WFang("wallet/recharge", function(arr) {
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
+            });
+
+
             $('body').on('click', '.sure-btn', function() {
                 // 移除 + - 的响应事件
                 $('body').off('click', '#minus');

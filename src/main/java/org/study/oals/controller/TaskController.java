@@ -1,12 +1,14 @@
 package org.study.oals.controller;
 
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.study.oals.annotation.Authorization;
 import org.study.oals.annotation.CurrentUser;
 import org.study.oals.common.JsonResult;
+import org.study.oals.model.domain.Task;
 import org.study.oals.model.domain.User;
 import org.study.oals.model.dto.TaskQueryDto;
 import org.study.oals.model.vo.OrderVo;
@@ -38,9 +40,22 @@ public class TaskController {
      */
     @Authorization
     @RequestMapping(value = "/finishTask", method = RequestMethod.POST)
-    public JsonResult finishTask(@CurrentUser User login, Long id) {
+    public JsonResult finishTask(@CurrentUser User login, Long id, String answer) {
 
-        Integer result = taskService.finishTask(login, id);
+        Integer result = taskService.finishTask(login, id, answer);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+
+        return new JsonResult(true, "操作成功", result);
+
+    }
+
+    @Authorization
+    @RequestMapping(value = "/confirmTask/{id}", method = RequestMethod.POST)
+    public JsonResult confirmTask(@CurrentUser User login, @PathVariable Long id) {
+
+        Integer result = taskService.confirmTask(login, id);
         if (result < 1) {
             return new JsonResult(false, "操作失败", result);
         }
@@ -84,5 +99,17 @@ public class TaskController {
 
         return new JsonResult(true, "操作成功", new PageInfo<>(taskVoList));
 
+    }
+
+    @Authorization
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public JsonResult saveUser(@CurrentUser User login, Task task) {
+
+        Integer result = taskService.save(task, login);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+
+        return new JsonResult(true, "操作成功", result);
     }
 }

@@ -49,6 +49,8 @@
     <if test="auditType != null">
       AND a.audit_type = #{auditType}
     </if>
+    ORDER BY
+      a.created_time DESC
   </select>
 
     <select id="showById" resultType="org.study.oals.model.vo.AuditVo">
@@ -57,10 +59,13 @@
           u.user_name,
           u.login_name,
           u.mobile_no,
-          u.email
+          u.email,
+          w.pay_number,
+          w.balance
         FROM
-          t_user u
-        RIGHT JOIN t_audit a ON u.id = a.id
+          t_audit a
+        LEFT JOIN t_user u ON u.id = a.id
+        LEFT JOIN t_wallet w ON w.id = a.id
         WHERE a.id = #{id}
     </select>
 

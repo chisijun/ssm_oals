@@ -18,5 +18,7 @@ public class OrderDto {
 
     private String username;
 
+    private String remark;
+
     private String mobile;
 }

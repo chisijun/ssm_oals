@@ -24,13 +24,12 @@
 </head>
 
 <body style="background:#65A6EA;width:1254px;" class="ifram">
-    <div class="wrapper-container payment_list">
+    <div class="wrapper-container payment_detail_list">
         <!--搜索框-->
         <div class="search-box">
             
             <input class="isPhone" type="text" placeholder="请输入问题名称" />
             <button class="searchBtn">搜索</button>
-            <button class="addBtn">新建</button>
         </div>
         <!--table数据-->
         <div class="table-box">
@@ -45,11 +44,13 @@
 
     <!--新增-->
     <div class="add_mask" id="add_mask">
-        <div class="mask_contain" style="height: 250px;">
-            <div class="mask_top">支付宝充值<span class="close1">&times;</span></div>
+        <div class="mask_contain" style="height: 360px;">
+            <div class="mask_top">发布任务<span class="close1">&times;</span></div>
             <div class="form" style="padding-bottom:0;">
-                <div><span>充值金额：</span><input id="totalAmount" type="text" placeholder="请输入充值金额"></div><br>
-                <div><span>充值备注：</span><input id="body" type="text" placeholder="请输入充值备注"></div><br>
+                <div><span>问题名称：</span><input id="a_questName" type="text" placeholder="请输入问题名称"></div><br>
+                <div><span>问题描述：</span><input id="a_questDesc" type="text" placeholder="请输入问题描述"></div><br>
+                <div><span>问题分类：</span><input id="a_tags" type="text" placeholder="请问题分类"></div><br>
+                <div><span>问题奖励：</span><input id="a_price" type="text" placeholder="请输入问题奖励"></div><br>
             </div>
             <div class="mask_btn"><button class="comfire" id="add_site">确认</button><button class="cansle">取消</button></div>
         </div>
@@ -57,14 +58,17 @@
 
     <!-- 编辑 -->
     <div class="modify_mask" id="modify_mask">
-        <input type="hidden" id="m_userId" value="">
-        <div class="mask_contain" style="height:360px;">
-            <div class="mask_top">修改用户<span class="close5">&times;</span></div>
+
+        <input type="hidden" id="m_taskId" value="">
+        <div class="mask_contain" style="height:300px;">
+            <div class="mask_top">回答问题<span class="close5">&times;</span></div>
             <div class="modify_box">
-                <div><span>登录名：</span><input id="m_loginName" type="text" placeholder="请输入登录名"></div><br>
-                <div><span>姓名：</span><input id="m_userName" type="text" placeholder="请输入姓名"></div><br>
-                <div><span>手机号：</span><input id="m_mobileNo" type="text" placeholder="请输入手机号"></div><br>
-                <div><span>邮箱：</span><input id="m_email" type="text" placeholder="请输入邮箱"></div><br>
+                <div><span>问题题目：</span><input id="m_questName" type="text" readonly="true"></div><br>
+                <div><span>问题描述：</span><input id="m_questDesc" type="text" readonly="true"></div><br>
+                <div><span>答案：</span><input id="m_answer" type="text" placeholder="请输入答案"></div><br>
+<!--                <div><span>姓名：</span><input id="m_userName" type="text" placeholder="请输入姓名"></div><br>-->
+<!--                <div><span>手机号：</span><input id="m_mobileNo" type="text" placeholder="请输入手机号"></div><br>-->
+<!--                <div><span>邮箱：</span><input id="m_email" type="text" placeholder="请输入邮箱"></div><br>-->
                 <div class="delete_btn"><button class="modify_comfire" id="modify_comfire" style="margin-top:18px;">确认</button><button class="modify_cansle" id="modify_cansle">取消</button></div>
             </div>
          </div>
@@ -72,28 +76,12 @@
 
     <!-- 重置密码 -->
     <div class="modify_mask" id="modify_pwd_mask">
-        <input type="hidden" id="paymentNo" value="">
-        <input type="hidden" id="purchaser" value="">
-        <div class="mask_contain" style="height:580px;">
-            <div class="mask_top">票据入库<span class="close6">&times;</span></div>
+        <input type="hidden" id="m_p_userId" value="">
+        <div class="mask_contain" style="height:260px;">
+            <div class="mask_top">重置密码<span class="close6">&times;</span></div>
             <div class="modify_box">
-                <div><span>发票代码：</span><input id="ticketCode" type="text" value="121001953031"></div><br>
-                <div><span>发票号码：</span><input id="ticketNo" type="text"></div><br>
-                <div><span>发票日期：</span><input id="ticketDate" type="text"></div><br>
-                <div><span>发票金额：</span><input id="fee" type="text" readonly="readonly"></div><br>
-                <div>
-                    <span>发票税率：</span>
-                    <select id="add_rateSlt" style="width:172px;">
-                        <option value="16">16%</option>
-                        <option value="13" selected="selected">13%</option>
-                        <option value="6">6%</option>
-                        <option value="3">3%</option>
-                    </select>
-                </div><br>
-                <div><span>销售方：</span><input id="seller" type="text" value="辽宁铁岭供暖公司"></div><br>
-                <div><span>识别号：</span><input id="sTaxpayerCode" type="text" value="9133011058027447X2"></div><br>
-                <div><span>地址&电话：</span><input id="sAddressPhone" type="text" value="杭州市余杭区文一西路969号5幢1楼110室 0571-85022088"></div><br>
-                <div><span>银行&账户：</span><input id="sBankAccount" type="text" value="招商杭州高新支行 571906814810700"></div><br>
+                <div><span>密码：</span><input id="password" type="password" placeholder="请输入登录名"></div><br>
+                <div><span>重复密码：</span><input id="confirmPwd" type="password" placeholder="请输入姓名"></div><br>
                 <div class="delete_btn"><button class="modify_comfire" id="modify_pwd_comfire" style="margin-top:18px;">确认</button><button class="modify_cansle" id="modify_pwd_cansle">取消</button></div>
             </div>
          </div>
@@ -101,10 +89,10 @@
 
     <!--确认删除-->
     <div class="delete_mask">
-        <input type="hidden" id="d_userId" value="">
+        <input type="hidden" id="d_roomId" value="">
         <div class="mask_contain">
-            <div class="mask_top">删除用户<span class="close3">&times;</span></div>
-            <div class="delete_title">是否删除选中用户？</div>
+            <div class="mask_top">供热强停<span class="close3">&times;</span></div>
+            <div class="delete_title">是否强停选中房子？</div>
             <div class="delete_btn"><button class="delete_comfire" id="del_user">确认</button><button class="delete_cansle">取消</button></div>
         </div>
     </div>
@@ -131,32 +119,18 @@
             });
 
 
-            load_user();
-
-            function load_user() {
-
-                var data = {
-                    "pageNum": 1,
-                    "pageSize": 100,
-                };
-
-                WFang("user/queryListWithPage", function(arr) {
-                    var datarow = "";
-
-                    if (arr.status == false) {
-                        
-                    } else {
-                        datarow += '<option value="-1">请选择待缴费用户</option>'; 
-                        for (var i = 0; i < arr.data.list.length; i++) {
-                            //roomLocation = arr.data[i].areaName + arr.data[i].buildingName + arr.data[i].unitNo + '单元' + arr.data[i].roomName
-                            datarow += '<option value=' + arr.data.list[i].id +'>'
-                                    + arr.data.list[i].userName + '</option>';
-                        }
-                    }
-                    $('#add_userSlt').html(datarow);
-                    //$('#m_buildingSlt').html(datarow);  
-                }, data, 'postForm');
+            var search=location.search;
+            var params={};
+            if (params!='') {
+                var ps = search.slice(1).split('&');
+                for (var i=0;i<ps.length;i++) {
+                    var arr=ps[i].split('=');
+                    params[arr[0]]=arr[1];
+                }
             }
+            var paymentNo = params.paymentNo;
+
+            // load_user();
 
             function accAdd(arg1,arg2){  
                 var r1,r2,m;  
@@ -236,10 +210,9 @@
                 var data = {
                     "pageNum": pageNo,
                     "pageSize": pageSize,
-                    "orderType":orderType,
-                    "userName": name
+                    "taskName": name
                 };
-                WFang("order/queryListWithPage", function(arr) {
+                WFang("task/queryTaskListWithPage", function(arr) {
                     // console.log(arr);
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -274,77 +247,66 @@
                             isPay = ''
                             payType = '',
                             fee = '';
-                        if (arr.data.list == '' || arr.data.list == null) {
+                        if (arr.data == '' || arr.data == null) {
                             layer.msg('暂无数据!');
                         } else {
                             html1 = 
-                                '<span>姓名</span>' +
-                                '<span>账单号</span>' +
-                                '<span>日期</span>' +
-                                '<span>账单类型</span>' +
-                                '<span>支付方式</span>' +
-                                '<span>账单金额(￥)</span>' +
-                                '<span>备注</span>' ;
+                                '<span>学生姓名</span>' +
+                                '<span>问题名称</span>' +
+                                '<span>问题描述</span>' +
+                                '<span>问题分类</span>' +
+                                '<span>单价(￥)</span>' +
+                                '<span>教师姓名</span>' +
+                                '<span>答案内容</span>' +
+                                '<span>问题状态</span>' +
+                                '<span>操作</span>';
                             $('.table-head').html(html1);
                             
                             for (var i = 0; i < arr.data.list.length; i++) {
 
-                                // switch(arr.data.list[i].payType) {
-                                //     case 0 :
-                                //         payType = '现金';
-                                //         break;
-                                //     case 1 :
-                                //         payType = '支付宝';
-                                //         break;
-                                //     case 2 :
-                                //         payType = '微信';
-                                //         break;
-                                //     case 3 :
-                                //         payType = '银联';
-                                //         break;
-                                // }
-                                payType = '支付宝';
+                                var opt = '<a class="a-edit" data-roomId="' + arr.data.list[i].id + '" href="javascript:void (0);">暂无操作</a>';
 
-                                fee = arr.data.list[i].fee;
-                                if (arr.data.list[i].isPay == '0') {
-                                    payType = '--';
-                                    fee = '--';
-                                }
-
-                                switch(arr.data.list[i].orderType) {
+                                switch(arr.data.list[i].state) {
                                     case 0 :
-                                        isPay = '充值';
+                                        roomType = '待发布';
                                         break;
                                     case 1 :
-                                        isPay = '支出';
+                                        roomType = '已发布';
+                                        opt = '<a class="a-edit" data-id="' + arr.data.list[i].id
+                                            + '" data-questName="' + arr.data.list[i].questionName
+                                            + '" data-questDesc="' + arr.data.list[i].questionDesc
+                                            + '" href="javascript:void (0);">回答问题</a>';
                                         break;
                                     case 2 :
-                                        isPay = '收入';
+                                        roomType = '已接收';
+                                        opt = '<a class="a-edit" data-id="' + arr.data.list[i].id
+                                            + '" data-questName="' + arr.data.list[i].questionName
+                                            + '" data-questDesc="' + arr.data.list[i].questionDesc
+                                            + '" href="javascript:void (0);">回答问题</a>';
                                         break;
                                     case 3 :
-                                        isPay = '提现';
+                                        roomType = '已完成';
+                                        break;
+                                    case 4 :
+                                        roomType = '确认完成';
                                         break;
                                 }
-
-                                html += 
+                                html +=
                                     '<div class="div-box">' +
-                                    '<span>' + arr.data.list[i].userName + '</span>' +
-                                    '<span>' + arr.data.list[i].orderNo + '</span>' +
-                                    '<span>' + arr.data.list[i].createdTime + '</span>' +
-                                    '<span>' + isPay + '</span>' +
-                                    '<span>' + payType + '</span>' +
-                                    '<span>' + arr.data.list[i].amount + '</span>' +
-                                    '<span>' + arr.data.list[i].remark + '</span>' +
-                                    '<span>' +
-                                    // '<a class="a-edit" data-paymentNo="' + arr.data.list[i].paymentNo + '" href="javascript:void (0);">详情</a>' +
-                                    // '<a class="a-modifyPwd" data-fee = "' + fee + '" data-paymentNo = "'
-                                    //     + arr.data.list[i].paymentNo + '" data-userName="'
-                                    //     + arr.data.list[i].userName + '" data-isPay="'
-                                    //     + arr.data.list[i].isPay +  '" data-fee="' + fee +  '" href="javascript:void (0);">票据入库</a>' +
+                                    '<span>' + arr.data.list[i].creator + '</span>' +
+                                    '<span>' + arr.data.list[i].questionName + '</span>' +
+                                    '<span>' + arr.data.list[i].questionDesc + '</span>' +
+                                    '<span>' + arr.data.list[i].tags + '</span>' +
+                                    '<span>' + arr.data.list[i].price + '</span>' +
+                                    '<span>' + arr.data.list[i].answerName + '</span>' +
+                                    '<span>' + arr.data.list[i].answer + '</span>' +
+                                    '<span>' + roomType + '</span>' +
+                                    '<span>' + opt + '</span>' +
+                                    // '<span>' +
+                                    // '<a class="a-delete" data-roomId="' + arr.data[i].roomId + '" href="javascript:void (0);">强停</a>' +
                                     // '</span>' +
                                     '</div>';
                             }
-                            
                            $('.table-body').html(html);
                         }
                     }
@@ -371,39 +333,29 @@
 
             /***********************编辑弹框*****************************/
             $('body').on('click', '.a-edit', function() {
-                // var userId = $(this).attr('data-userId');
-                // var loginName = $(this).attr('data-loginName');
-                // var userName = $(this).attr('data-userName');
-                // var mobileNo = $(this).attr('data-mobileNo');
-                // var email = $(this).attr('data-email');
-                // $("#m_userId").val(userId);
-                // $("#m_loginName").val(loginName);
-                // $("#m_userName").val(userName);
-                // $("#m_mobileNo").val(mobileNo);
-                // $("#m_email").val(email);
+                var taskId = $(this).attr('data-id');
+                var questName = $(this).attr('data-questName');
+                var questDesc = $(this).attr('data-questDesc');
+                $("#m_taskId").val(taskId);
+                $("#m_questName").val(questName);
+                $("#m_questDesc").val(questDesc);
 
-                // $("#modify_mask").show();
+                $("#modify_mask").show();
                 // 
                 // 缴费单详情
-                var paymentNo = $(this).attr('data-paymentNo');
-                window.location.href = 'payment_detail_list.html?paymentNo=' + paymentNo;
+                // var paymentNo = $(this).attr('data-paymentNo');
+                // window.location.href = 'payment_detail_list.html?paymentNo=' + paymentNo;
             });
 
             /***********************编辑-确定****************************/
             $('body').on("click","#modify_comfire", function(){
-                var userId = $('#m_userId').val();
-                var loginName = $("#m_loginName").val();
-                var userName = $("#m_userName").val();
-                var mobileNo = $("#m_mobileNo").val();
-                var email = $("#m_email").val();
+                var taskId = $('#m_taskId').val();
+                var answer = $("#m_answer").val();
                 var data = {
-                    "id": userId,
-                    "loginName": loginName,
-                    "userName": userName,
-                    "mobileNo": mobileNo,
-                    "email": email
+                    "id": taskId,
+                    "answer": answer
                 };
-                WFang("user/save", function(arr) {
+                WFang("task/finishTask", function(arr) {
                     var pageNo = $('.layui-input').val();
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -419,34 +371,10 @@
             
 
             /***********************修改密码弹框*****************************/
-            $('body').on("click",".a-modifyPwd", function() {
-                var isPay = $(this).attr('data-isPay');
-                
-                if (isPay == 0) {
-                    layer.msg("该缴费单尚未支付, 无法入库");
-                    return ;
-                }   
+            $('body').on("click",".a-modifyPwd",function(){
+                var userId = $(this).attr('data-userId');
+                $("#m_p_userId").val(userId);
 
-                var paymentNo = $(this).attr('data-paymentNo');
-                var fee = $(this).attr('data-fee');
-                var userName = $(this).attr('data-userName');
-
-                $("#paymentNo").val(paymentNo);
-                $("#fee").val(fee);
-                $("#purchaser").val(userName);
-                var ticketDate = getNowFormatDate();
-                $("#ticketDate").val(ticketDate);
-                var ticketNo = "021000001";
-                WFang("ticket/getTicketNo", function(arr) {
-                    var pageNo = $('.layui-input').val();
-                    if (arr.status == false) {
-                        
-                    } else {
-                        ticketNo = arr.data;
-                        $("#ticketNo").val(ticketNo);
-                    }
-                }, '', 'postForm')
-                
                 $("#modify_pwd_mask").show();
             });
 
@@ -463,33 +391,15 @@
 
             /***********************修改密码实现*****************************/
             $("body").on("click","#modify_pwd_comfire",function() {
-                
-                var paymentNo = $("#paymentNo").val();
-                var fee = $("#fee").val();
-                var purchaser = $("#purchaser").val();
-                var ticketNo = $("#ticketNo").val();
-                var ticketDate = $("#ticketDate").val();
-                var ticketCode = $("#ticketCode").val();
-                var taxRate = $('#add_rateSlt').find("option:selected").val();
-                var seller = $("#seller").val(); 
-                var sTaxpayerCode = $("#sTaxpayerCode").val();
-                var sAddressPhone = $("#sAddressPhone").val();
-                var sBankAccount = $("#sBankAccount").val();
+                var userId = $("#m_p_userId").val();
+                var password = $("#password").val();
+                var confirmPwd = $("#confirmPwd").val();
                 var data = {
-                    "paymentNo": paymentNo,
-                    "fee": fee,
-                    "purchaser": purchaser,
-                    "ticketNo": ticketNo,
-                    "ticketDate": ticketDate,
-                    "ticketCode": ticketCode,
-                    "taxRate": taxRate,
-                    "seller": seller,
-                    "sTaxpayerCode": sTaxpayerCode,
-                    "sAddressPhone": sAddressPhone,
-                    "sBankAccount": sBankAccount
+                    "id": userId,
+                    "password": password,
+                    "confirmPwd": confirmPwd
                 };
-                WFang("ticket/save", function(arr) {
-
+                WFang("user/modifyPwd", function(arr) {
                     var pageNo = $('.layui-input').val();
                     if (arr.status == false) {
                         layer.msg(arr.message);
@@ -497,8 +407,7 @@
                         layer.msg(arr.message);
                         setTimeout(function() {
                             $("#modify_pwd_mask").hide();
-                            
-                            //getData(pageNo, name);
+                            getData(pageNo, name);
                         }, 1800);
                     }
                 }, data, 'postForm')
@@ -526,21 +435,42 @@
 
             /***********************添加实现*****************************/
             $("body").on("click","#add_site",function() {
-                // var userId = $('#add_userSlt').find("option:selected").val();
-                // var paymentYear = $('#add_yearSlt').find("option:selected").val();
-                var totalAmount = $('#totalAmount').val();
-                var body = $('#body').val();
+                var userId = $('#add_userSlt').find("option:selected").val();
+                var paymentYear = $('#add_yearSlt').find("option:selected").val();
+                var acreage = $('#acreage').val();
+
+                if (userId == '-1') {
+                    layer.msg('请选择待缴费用户');
+                    return ;
+                }
+
+                if (paymentYear == '-1') {
+                    layer.msg('请选择待缴费年度');
+                    return ;
+                }
+
+                if (acreage == '0') {
+                    layer.msg('该用户无需缴费');
+                    return ;
+                }
 
                 var data = {
-                    "totalAmount": totalAmount,
-                    "body": body
+                    "paymentYear": paymentYear,
+                    "userId": userId,
+                    "acreage": acreage
                 };
-
-                window.location.href = ApiConf.server +
-                    "wallet/onlinePay?token=" + ApiConf.token +
-                    "&payType=" + 2 +
-                    "&totalAmount=" + totalAmount +
-                    "&body=" + body;
+                WFang("payment/save", function(arr) {
+                    var pageNo = $('.layui-input').val();
+                    if (arr.status == false) {
+                        layer.msg(arr.message);
+                    } else {
+                        layer.msg(arr.message);
+                        setTimeout(function() {
+                            $(".add_mask").hide();
+                            getData(pageNo, name);
+                        }, 1800);
+                    }
+                }, data, 'postForm')
             });
 
             /***********************删除弹框*****************************/
@@ -576,23 +506,6 @@
                     }
                 }, '', 'postForm')
             });
-
-            //获取当前时间，格式YYYY-MM-DD
-            function getNowFormatDate() {
-                var date = new Date();
-                var seperator1 = "-";
-                var year = date.getFullYear();
-                var month = date.getMonth() + 1;
-                var strDate = date.getDate();
-                if (month >= 1 && month <= 9) {
-                    month = "0" + month;
-                }
-                if (strDate >= 0 && strDate <= 9) {
-                    strDate = "0" + strDate;
-                }
-                var currentdate = year + seperator1 + month + seperator1 + strDate;
-                return currentdate;
-            }            
         });
     </script>
 </body>

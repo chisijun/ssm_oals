@@ -30,5 +30,10 @@
     <if test="orderType != null">
       AND o.order_type = #{orderType}
     </if>
+    <if test="walletId != null">
+      AND o.wallet_id = #{walletId}
+    </if>
+    ORDER BY
+      created_time DESC
   </select>
 </mapper>

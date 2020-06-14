@@ -3,13 +3,17 @@ package org.study.oals.service.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.study.oals.base.BaseService;
+import org.study.oals.config.Constants;
 import org.study.oals.dao.WalletMapper;
+import org.study.oals.model.domain.Order;
 import org.study.oals.model.domain.User;
 import org.study.oals.model.domain.Wallet;
 import org.study.oals.model.dto.OrderDto;
 import org.study.oals.model.dto.WalletQueryDto;
 import org.study.oals.model.vo.WalletVo;
+import org.study.oals.service.OrderService;
 import org.study.oals.service.WalletService;
+import org.study.oals.utils.TimeUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,6 +28,8 @@ public class WalletServiceImpl extends BaseService<Wallet> implements WalletServ
 
     @Resource
     private WalletMapper walletMapper;
+    @Resource
+    private OrderService orderService;
 
     /**
      * 教师提现
@@ -35,7 +41,25 @@ public class WalletServiceImpl extends BaseService<Wallet> implements WalletServ
      */
     @Override
     public Integer withdrawal(User login, OrderDto orderDto) {
-        return null;
+
+        Wallet wallet = walletMapper.selectByPrimaryKey(login.getId());
+        if (wallet.getBalance().compareTo(orderDto.getAmount()) < 0) {
+            throw new RuntimeException("余额不足");
+        }
+
+        wallet.setBalance(wallet.getBalance().subtract(orderDto.getAmount()));
+
+        Order order = new Order();
+        order.setOrderNo(TimeUtils.getPaymentNo());
+        order.setUpdateInfo(login);
+        order.setAmount(orderDto.getAmount());
+        order.setRemark(orderDto.getRemark());
+        order.setOrderType(Constants.ORDER_OUT);
+        order.setWalletId(login.getId());
+
+        orderService.save(order);
+
+        return walletMapper.updateByPrimaryKeySelective(wallet);
     }
 
     /**
@@ -49,7 +73,27 @@ public class WalletServiceImpl extends BaseService<Wallet> implements WalletServ
     @Override
     public Integer recharge(User login, OrderDto orderDto) {
 
-        return null;
+//        Wallet wallet = walletMapper.selectByPrimaryKey(login.getId());
+//        if (wallet.getBalance().compareTo(orderDto.getAmount()) < 0) {
+//            throw new RuntimeException("余额不足");
+//        }
+
+        Wallet wallet = walletMapper.selectByPrimaryKey(login.getId());
+        wallet.setId(login.getId());
+        wallet.setBalance(wallet.getBalance().add(orderDto.getAmount()));
+        wallet.setUpdateInfo(login);
+
+        Order order = new Order();
+        order.setOrderNo(TimeUtils.getPaymentNo());
+        order.setUpdateInfo(login);
+        order.setAmount(orderDto.getAmount());
+        order.setRemark(orderDto.getRemark());
+        order.setOrderType(Constants.ORDER_IN);
+        order.setWalletId(login.getId());
+
+        orderService.save(order);
+
+        return walletMapper.updateByPrimaryKeySelective(wallet);
     }
 
     /**
@@ -79,4 +123,5 @@ public class WalletServiceImpl extends BaseService<Wallet> implements WalletServ
 
         return walletMapper.queryListWithPage(walletQueryDto);
     }
+
 }

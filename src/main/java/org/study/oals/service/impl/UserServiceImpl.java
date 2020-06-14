@@ -19,6 +19,7 @@ import org.study.oals.dao.UserMapper;
 import org.study.oals.model.domain.Audit;
 import org.study.oals.model.domain.RoleUser;
 import org.study.oals.model.domain.User;
+import org.study.oals.model.domain.Wallet;
 import org.study.oals.model.dto.CheckLoginNameDto;
 import org.study.oals.model.dto.ModifyPwdDto;
 import org.study.oals.model.dto.UserQueryDto;
@@ -26,6 +27,7 @@ import org.study.oals.model.enums.UserTypeEnum;
 import org.study.oals.model.vo.UserVo;
 import org.study.oals.service.AuditService;
 import org.study.oals.service.UserService;
+import org.study.oals.service.WalletService;
 import org.study.oals.utils.MD5;
 import org.study.oals.utils.PublicUtil;
 import tk.mybatis.mapper.entity.Example;
@@ -48,6 +50,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	private RoleUserMapper roleUserMapper;
 	@Resource
 	private AuditService auditService;
+	@Resource
+	private WalletService walletService;
 
 
 	/* (non-Javadoc)
@@ -233,11 +237,18 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			roleUserMapper.insertSelective(roleUser);
 
 			Audit audit = new Audit();
-            audit.setId(user.getId());
+            audit.setId(record.getId());
 			audit.setAuditType(user.getRoleId().intValue());
 			audit.setPass(Constants.PASS_APPLY);
 
 			auditService.save(audit);
+
+			Wallet wallet = new Wallet();
+			wallet.setUserId(record.getId());
+			wallet.setId(record.getId());
+			wallet.setUpdateInfo(record);
+
+			walletService.save(wallet);
 		}
 
 		return result;

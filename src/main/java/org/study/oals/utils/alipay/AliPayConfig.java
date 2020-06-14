@@ -35,6 +35,7 @@ public final class AliPayConfig {
     /**
      * 成功付款回调
      */
+    public static String RETURN_URL = "http://localhost:8080/oals/pc/order_list.html";
     public static String PAY_NOTIFY = "http://商户网关地址/alipay.trade.wap.pay-JAVA-UTF-8/notify_url.jsp";
     //public static String PAY_NOTIFY = "http://localhost:8080/heat/payment/aliPayNotify";
     /**
@@ -45,7 +46,7 @@ public final class AliPayConfig {
      * 前台通知地址
      * 前台根据返回的参数获取订单详情
      */
-    public static String RETURN_URL = "http://商户网关地址/alipay.trade.wap.pay-JAVA-UTF-8/return_url.jsp";
+//    public static String RETURN_URL = "http://商户网关地址/alipay.trade.wap.pay-JAVA-UTF-8/return_url.jsp";
     //public static String RETURN_URL = "http://localhost:8080/heat/wx/html/payment_list.html";
     /**
      * 参数类型

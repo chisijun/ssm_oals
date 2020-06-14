@@ -7,10 +7,13 @@ import org.study.oals.config.Constants;
 import org.study.oals.dao.AuditMapper;
 import org.study.oals.model.domain.Audit;
 import org.study.oals.model.domain.User;
+import org.study.oals.model.domain.Wallet;
 import org.study.oals.model.dto.AuditDto;
 import org.study.oals.model.dto.AuditQueryDto;
 import org.study.oals.model.vo.AuditVo;
 import org.study.oals.service.AuditService;
+import org.study.oals.service.UserService;
+import org.study.oals.service.WalletService;
 import org.study.oals.utils.PublicUtil;
 
 import javax.annotation.Resource;
@@ -26,6 +29,10 @@ public class AuditServiceImpl extends BaseService<Audit> implements AuditService
 
     @Resource
     private AuditMapper auditMapper;
+    @Resource
+    private UserService userService;
+    @Resource
+    private WalletService walletService;
 
     /**
      * 认证审核
@@ -84,12 +91,12 @@ public class AuditServiceImpl extends BaseService<Audit> implements AuditService
         // 查看审核对象是否存在
         Audit audit = auditMapper.selectByPrimaryKey(auditDto.getId());
 
-        if (PublicUtil.isNotEmpty(audit)) {
+        if (PublicUtil.isEmpty(audit)) {
             throw new RuntimeException("认证审核不存在");
         }
 
         audit.setUpdateInfo(login);
-        audit.setPass(audit.getPass());
+        audit.setPass(0);
         if (PublicUtil.isNotEmpty(audit.getFailedDesc())) {
             audit.setFailedDesc(audit.getFailedDesc());
         }
@@ -111,12 +118,16 @@ public class AuditServiceImpl extends BaseService<Audit> implements AuditService
         // 查看审核对象是否存在
         Audit audit = auditMapper.selectByPrimaryKey(auditDto.getId());
 
-        if (PublicUtil.isNotEmpty(audit)) {
+        if (PublicUtil.isEmpty(audit)) {
             throw new RuntimeException("认证审核不存在");
         }
 
         audit.setUpdateInfo(login);
-        audit.setPass(Constants.PASS_NO);
+//        audit.setPass(Constants.PASS_NO);
+
+        if (PublicUtil.isNotEmpty(auditDto.getIdCard())) {
+            audit.setIdCard(auditDto.getIdCard());
+        }
 
         if (PublicUtil.isNotEmpty(auditDto.getIdCardDown())) {
             audit.setIdCardDown(auditDto.getIdCardDown());
@@ -141,6 +152,19 @@ public class AuditServiceImpl extends BaseService<Audit> implements AuditService
         if (PublicUtil.isNotEmpty(auditDto.getRemark())) {
             audit.setRemark(auditDto.getRemark());
         }
+
+        User user = new User();
+        user.setId(audit.getId());
+        user.setUserName(auditDto.getUserName());
+        user.setMobileNo(auditDto.getMobileNo());
+        user.setEmail(auditDto.getEmail());
+        userService.update(user);
+
+        Wallet wallet = new Wallet();
+        wallet.setId(audit.getId());
+        wallet.setPayNumber(auditDto.getPayNumber());
+
+        walletService.update(wallet);
 
         return auditMapper.updateByPrimaryKeySelective(audit);
     }

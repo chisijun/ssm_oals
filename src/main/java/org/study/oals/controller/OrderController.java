@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.study.oals.annotation.Authorization;
+import org.study.oals.annotation.CurrentUser;
 import org.study.oals.common.JsonResult;
+import org.study.oals.model.domain.User;
 import org.study.oals.model.dto.OrderQueryDto;
 import org.study.oals.model.vo.AuditVo;
 import org.study.oals.model.vo.OrderVo;
@@ -28,8 +30,12 @@ public class OrderController {
 
     @Authorization
     @RequestMapping(value = "/queryListWithPage", method = RequestMethod.POST)
-    public JsonResult queryOrderListWithPage(OrderQueryDto orderQueryDto) {
+    public JsonResult queryOrderListWithPage(@CurrentUser User login, OrderQueryDto orderQueryDto) {
 
+        if (orderQueryDto.getUserId() != null &&
+                !orderQueryDto.getUserId().equals(-1)) {
+            orderQueryDto.setWalletId(login.getId());
+        }
         List<OrderVo> orderVoList = orderService.queryOrderListWithPage(orderQueryDto);
 
         return new JsonResult(true, "操作成功", new PageInfo<>(orderVoList));
