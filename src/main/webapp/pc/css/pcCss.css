@@ -573,13 +573,13 @@
 
 .audit_list .table-box .div-box span:nth-child(1),
 .audit_list .table-box .table-head span:nth-child(1) {
-    width: 140px;
+    width: 120px;
 }
 
 .audit_list .table-box .div-box span:nth-child(2),
 .audit_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 220px;
+    width: 150px;
 }
 
 .audit_list .table-box .div-box span:nth-child(3),
@@ -591,25 +591,25 @@
 .audit_list .table-box .div-box span:nth-child(4),
 .audit_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 220px;
 }
 
 .audit_list .table-box .div-box span:nth-child(5),
 .audit_list .table-box .table-head span:nth-child(5) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 180px;
 }
 
 .audit_list .table-box .div-box span:nth-child(6),
 .audit_list .table-box .table-head span:nth-child(6) {
     border-left: 1px solid #c1c3c0;
-    width: 130px;
+    width: 140px;
 }
 
 .audit_list .table-box .div-box span:nth-child(7),
 .audit_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 200px;
+    width: 150px;
 }
 
 .audit_list .table-box .div-box span:nth-child(7) input,
@@ -787,7 +787,7 @@
 .payment_list .table-box .div-box span:nth-child(7),
 .payment_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 180px;
+    width: 160px;
 }
 
 /********************payment_detail_list.html*************************/
@@ -800,19 +800,19 @@
 .payment_detail_list .table-box .div-box span:nth-child(2),
 .payment_detail_list .table-box .table-head span:nth-child(2) {
     border-left: 1px solid #c1c3c0;
-    width: 140px;
+    width: 120px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(3),
 .payment_detail_list .table-box .table-head span:nth-child(3) {
     border-left: 1px solid #c1c3c0;
-    width: 240px;
+    width: 180px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(4),
 .payment_detail_list .table-box .table-head span:nth-child(4) {
     border-left: 1px solid #c1c3c0;
-    width: 120px;
+    width: 100px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(5),
@@ -830,7 +830,7 @@
 .payment_detail_list .table-box .div-box span:nth-child(7),
 .payment_detail_list .table-box .table-head span:nth-child(7) {
     border-left: 1px solid #c1c3c0;
-    width: 220px;
+    width: 200px;
 }
 
 .payment_detail_list .table-box .div-box span:nth-child(8),
@@ -839,8 +839,14 @@
     width: 100px;
 }
 
-.payment_detail_list .table-box .div-box span:nth-child(8) input,
-.payment_detail_list .table-box .table-head span:nth-child(8) input {
+.payment_detail_list .table-box .div-box span:nth-child(9),
+.payment_detail_list .table-box .table-head span:nth-child(9) {
+    border-left: 1px solid #c1c3c0;
+    width: 120px;
+}
+
+.payment_detail_list .table-box .div-box span:nth-child(9) input,
+.payment_detail_list .table-box .table-head span:nth-child(9) input {
     display: inline-block;
     width: 100%;
     border: none;
@@ -1783,7 +1789,7 @@
 
 .myBill .person .rate {
     display: inline-block;
-    width: 105px;
+    width: 185px;
     height: 30px;
     border: 1px solid #c1c3c0;
     border-radius: 5px;

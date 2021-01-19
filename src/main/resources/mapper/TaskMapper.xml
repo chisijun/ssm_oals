@@ -43,5 +43,7 @@
         #{item}
       </foreach>
     </if>
+    ORDER BY
+        created_time DESC
   </select>
 </mapper>

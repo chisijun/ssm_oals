@@ -23,7 +23,7 @@ public interface TaskService extends IService<Task> {
      *
      * @return  the int.
      */
-    Integer finishTask(User login, Long id);
+    Integer finishTask(User login, Long id, String answer);
 
     /**
      * 教师接收任务
@@ -43,4 +43,8 @@ public interface TaskService extends IService<Task> {
      * @return  the list.
      */
     List<TaskVo> queryTaskListWithPage(TaskQueryDto taskQueryDto);
+
+    Integer save(Task task, User login);
+
+    Integer confirmTask(User login, Long id);
 }

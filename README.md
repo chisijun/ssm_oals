@@ -24,3 +24,7 @@ Server > VM options 设置为 `-Dfile.encoding=UTF-8` 重启tomcat
 ## 3.设置自动导入包
 file > setting > Editor > General > Auto Import, 按照下图勾选，点击Apply
 ![](https://img-blog.csdnimg.cn/20200426112654891.png "设置自动导入包")
+## 4.支付宝测试账号
+账户：uoeklx2757@sandbox.com
+登录密码：111111
+支付密码：111111

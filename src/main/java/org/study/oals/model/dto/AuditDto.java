@@ -32,6 +32,16 @@ public class AuditDto {
      */
     private Integer auditType;
 
+    private String idCard;
+
+    private String userName;
+
+    private String mobileNo;
+
+    private String email;
+
+    private String payNumber;
+
     /**
      * 身份证正面
      */

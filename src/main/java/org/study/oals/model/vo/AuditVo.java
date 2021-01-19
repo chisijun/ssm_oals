@@ -5,6 +5,7 @@ import org.study.oals.base.BaseEntity;
 import org.study.oals.base.BaseVo;
 
 import javax.persistence.Column;
+import java.math.BigDecimal;
 
 /**
  * @Auther: chisj chisj@foxmal.com
@@ -22,6 +23,12 @@ public class AuditVo extends BaseVo {
      * 审核类型 2-学生 3-教师
      */
     private Integer auditType;
+
+    private String email;
+
+    private String payNumber;
+
+    private BigDecimal balance;
 
     /**
      * 身份证
